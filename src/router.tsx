@@ -1,6 +1,6 @@
-import { Suspense, lazy } from 'react';
-import { Navigate } from 'react-router-dom';
-import { RouteObject } from 'react-router';
+import {lazy, Suspense} from 'react';
+import {Navigate} from 'react-router-dom';
+import {RouteObject} from 'react-router';
 
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
@@ -9,11 +9,23 @@ import SuspenseLoader from 'src/components/SuspenseLoader';
 
 const Loader = (Component) => (props) =>
   (
-    <Suspense fallback={<SuspenseLoader />}>
+    <Suspense fallback={<SuspenseLoader/>}>
       <Component {...props} />
     </Suspense>
   );
 
+
+// Pages
+
+const Main = Loader(lazy(() => import('src/content/Main')));
+
+// Management
+
+const Services = Loader(lazy(() => import('src/content/management/Services')));
+const Blog = Loader(lazy(() => import('src/content/management/Blog')));
+const Reviews = Loader(lazy(() => import('src/content/management/Reviews')));
+const Stones = Loader(lazy(() => import('src/content/management/Stones')));
+const StonePictures = Loader(lazy(() => import('src/content/management/StonePictures')));
 
 // Dashboards
 
@@ -76,83 +88,104 @@ const StatusMaintenance = Loader(
 const routes: RouteObject[] = [
   {
     path: '',
-    element: <BaseLayout />,
+    element: <SidebarLayout/>,
     children: [
       {
-        path: 'status',
-        children: [
-          {
-            path: '',
-            element: <Navigate to="404" replace />
-          },
-          {
-            path: '404',
-            element: <Status404 />
-          },
-          {
-            path: '500',
-            element: <Status500 />
-          },
-          {
-            path: 'maintenance',
-            element: <StatusMaintenance />
-          },
-          {
-            path: 'coming-soon',
-            element: <StatusComingSoon />
-          }
-        ]
+        path: '/',
+        element: <Main/>
+      },
+    ]
+  },
+  {
+    path: 'status',
+    element: <BaseLayout/>,
+    children: [
+      {
+        path: '',
+        element: <Navigate to="404" replace/>
       },
       {
-        path: '*',
-        element: <Status404 />
+        path: '404',
+        element: <Status404/>
+      },
+      {
+        path: '500',
+        element: <Status500/>
+      },
+      {
+        path: 'maintenance',
+        element: <StatusMaintenance/>
+      },
+      {
+        path: 'coming-soon',
+        element: <StatusComingSoon/>
       }
     ]
   },
   {
     path: 'dashboards',
-    element: <SidebarLayout />,
+    element: <SidebarLayout/>,
     children: [
       {
         path: '',
-        element: <Navigate to="crypto" replace />
+        element: <Navigate to="crypto" replace/>
       },
       {
         path: 'crypto',
-        element: <Crypto />
+        element: <Crypto/>
       },
       {
         path: 'messenger',
-        element: <Messenger />
+        element: <Messenger/>
       }
     ]
   },
   {
     path: 'management',
-    element: <SidebarLayout />,
+    element: <SidebarLayout/>,
     children: [
       {
         path: '',
-        element: <Navigate to="transactions" replace />
+        element: <Navigate to="transactions" replace/>
+      },
+      {
+        path: 'services',
+        element: <Services />
+      },
+      {
+        path: 'blog',
+        element: <Blog />
+      },
+      {
+        path: 'stones',
+        element: <Stones />
+      },
+      {
+        path: 'stone-pictures',
+        element: <StonePictures />
+      },
+      {
+        path: 'reviews',
+        element: <Reviews />
       },
       {
         path: 'transactions',
-        element: <Transactions />
+        element: <Transactions/>
       },
       {
         path: 'profile',
         children: [
           {
             path: '',
-            element: <Navigate to="details" replace />
+            element: <Navigate to="details" replace/>
           },
           {
             path: 'details',
-            element: <UserProfile />
+            element: <UserProfile/>
           },
           {
             path: 'settings',
-            element: <UserSettings />
+            element: <UserSettings/>
           }
         ]
       }
@@ -160,49 +193,53 @@ const routes: RouteObject[] = [
   },
   {
     path: '/components',
-    element: <SidebarLayout />,
+    element: <SidebarLayout/>,
     children: [
       {
         path: '',
-        element: <Navigate to="buttons" replace />
+        element: <Navigate to="buttons" replace/>
       },
       {
         path: 'buttons',
-        element: <Buttons />
+        element: <Buttons/>
       },
       {
         path: 'modals',
-        element: <Modals />
+        element: <Modals/>
       },
       {
         path: 'accordions',
-        element: <Accordions />
+        element: <Accordions/>
       },
       {
         path: 'tabs',
-        element: <Tabs />
+        element: <Tabs/>
       },
       {
         path: 'badges',
-        element: <Badges />
+        element: <Badges/>
       },
       {
         path: 'tooltips',
-        element: <Tooltips />
+        element: <Tooltips/>
       },
       {
         path: 'avatars',
-        element: <Avatars />
+        element: <Avatars/>
       },
       {
         path: 'cards',
-        element: <Cards />
+        element: <Cards/>
       },
       {
         path: 'forms',
-        element: <Forms />
+        element: <Forms/>
       }
     ]
+  },
+  {
+    path: '*',
+    element: <Status404 />
   }
 ];
 
