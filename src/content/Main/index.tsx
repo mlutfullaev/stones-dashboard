@@ -40,7 +40,6 @@ const MainPage = () => {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 };
