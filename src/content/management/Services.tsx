@@ -1,25 +1,16 @@
-import React, {SyntheticEvent, useState} from "react";
+import React, {useState} from "react";
 import {Helmet} from "react-helmet-async";
 import PageTitleWrapper from "../../components/PageTitleWrapper";
-import {Card, CardContent, CardHeader, Container, Divider, Grid, Typography} from "@mui/material";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import {Card, CardContent, Container, Grid, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
-import {TabPanel} from "../pages/Components/Tabs";
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`
-  };
-}
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+import CardMedia from "@mui/material/CardMedia";
+import CardActions from "@mui/material/CardActions";
 
 const Services = () => {
-  const [tabs, setTabs] = useState(0);
-
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setTabs(newValue);
-  };
+  const [modal, setModal] = useState(false);
 
   return (
     <>
@@ -27,16 +18,19 @@ const Services = () => {
         <title>Услуги | Админ панель</title>
       </Helmet>
       <PageTitleWrapper>
-        <Typography variant="h3" component="h3" gutterBottom>
-          Услуги
-        </Typography>
+        <Grid
+          container
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Typography variant="h3" component="h3" gutterBottom>
+            Услуги
+          </Typography>
+          <Button variant="outlined" onClick={() => setModal(true)}>
+            Добавить услуги
+          </Button>
+        </Grid>
       </PageTitleWrapper>
-      <Container maxWidth="lg">
-        <Card>
-          <Grid>
-          </Grid>
-        </Card>
-      </Container>
       <Container maxWidth="lg">
         <Grid
           container
@@ -49,30 +43,117 @@ const Services = () => {
             <Card>
               <CardContent>
                 <Box sx={{width: "100%"}}>
-                  <Tabs
-                    variant="scrollable"
-                    scrollButtons="auto"
-                    textColor="primary"
-                    indicatorColor="primary"
-                    value={tabs}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                  >
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                  </Tabs>
-                  <TabPanel value={tabs} index={0}>
-                    Item One
-                  </TabPanel>
-                  <TabPanel value={tabs} index={1}>
-                    Item Two
-                  </TabPanel>
                 </Box>
+                <Typography variant="h3" component="h3" gutterBottom>Список услуг</Typography>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="left"
+                  alignItems="start"
+                  spacing={3}
+                  m={'0 auto'}
+                >
+                  <CardContent>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image="/static/images/placeholders/covers/6.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Lizards are a widespread group of squamate reptiles, with
+                          over 6,000 species, ranging across all continents except
+                          Antarctica
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>
+                  </CardContent>
+                  <CardContent>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image="/static/images/placeholders/covers/6.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Lizards are a widespread group of squamate reptiles, with
+                          over 6,000 species, ranging across all continents except
+                          Antarctica
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>
+                  </CardContent>
+                  <CardContent>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image="/static/images/placeholders/covers/6.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Lizards are a widespread group of squamate reptiles, with
+                          over 6,000 species, ranging across all continents except
+                          Antarctica
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>
+                  </CardContent>
+                  <CardContent>
+                    <Card sx={{ maxWidth: 345 }}>
+                      <CardMedia
+                        sx={{ height: 140 }}
+                        image="/static/images/placeholders/covers/6.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                          Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          Lizards are a widespread group of squamate reptiles, with
+                          over 6,000 species, ranging across all continents except
+                          Antarctica
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small">Learn More</Button>
+                      </CardActions>
+                    </Card>
+                  </CardContent>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       </Container>
+      <Dialog onClose={() => setModal(false)} open={modal}>
+        <DialogTitle>Добавление новой услуги</DialogTitle>
+      </Dialog>
     </>
   );
 };

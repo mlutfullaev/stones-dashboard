@@ -28,15 +28,15 @@ import Footer from 'src/components/Footer';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 
-function SimpleDialog(props) {
-  const { onClose, selectedValue, open } = props;
+export function SimpleDialog(props) {
+  const { onClose, open } = props;
 
   const handleClose = () => {
-    onClose(selectedValue);
+    onClose();
   };
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    onClose();
   };
 
   return (
@@ -129,7 +129,7 @@ function Modals() {
                 <SimpleDialog
                   selectedValue={selectedValue}
                   open={open}
-                  onClose={handleClose}
+                  // onClose={handleClose}
                 />
               </CardContent>
             </Card>

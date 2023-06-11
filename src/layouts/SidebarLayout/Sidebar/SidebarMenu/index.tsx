@@ -248,7 +248,7 @@ function SidebarMenu() {
                   to="/management/stone-pictures"
                   startIcon={<MmsTwoToneIcon />}
                 >
-                  Картинки каминь
+                  Картинки камней
                 </Button>
               </ListItem>
               <ListItem component="div">
