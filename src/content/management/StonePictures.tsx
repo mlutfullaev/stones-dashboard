@@ -26,9 +26,14 @@ const StonePictures = () => {
           <Typography variant="h3" component="h3" gutterBottom>
             Картинки камней
           </Typography>
-          <Button variant="outlined" onClick={() => setModal(true)}>
-            Добавить картинку камни
-          </Button>
+          <Box style={{display: 'flex', gap: 20, alignItems: 'center'}}>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Всего: бир коп
+            </Typography>
+            <Button variant="outlined" onClick={() => setModal(true)}>
+              Добавить картинку камни
+            </Button>
+          </Box>
         </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">
