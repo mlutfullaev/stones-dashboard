@@ -18,7 +18,7 @@ function Footer() {
       >
         <Box>
           <Typography variant="subtitle1">
-            &copy; 2022 - Tokyo Free White React Typescript Admin Dashboard
+            &copy; 2022 - Админ панель по камням
           </Typography>
         </Box>
         <Typography

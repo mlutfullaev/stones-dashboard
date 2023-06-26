@@ -4,7 +4,7 @@
   "display": "standalone",
   "start_url": ".",
   "short_name": "Tokyo Free White",
-  "name": "Tokyo Free White React Typescript Admin Dashboard",
+  "name": "Админ панель по камням",
   "icons": [
     {
       "src": "/icon-192x192.png",

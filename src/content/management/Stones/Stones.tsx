@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Helmet} from "react-helmet-async";
-import PageTitleWrapper from "../../components/PageTitleWrapper";
+import PageTitleWrapper from "../../../components/PageTitleWrapper";
 import {Card, CardContent, Container, Grid, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -8,6 +8,8 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
+import TextField from "@mui/material/TextField";
+import StonesDialog from "./StonesDialog";
 
 const Stones = () => {
   const [modal, setModal] = useState(false);
@@ -26,9 +28,14 @@ const Stones = () => {
           <Typography variant="h3" component="h3" gutterBottom>
             Камни
           </Typography>
-          <Button variant="outlined" onClick={() => setModal(true)}>
-            Добавить камень
-          </Button>
+          <Box style={{display: 'flex', gap: 20, alignItems: 'center'}}>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Всего: бир коп
+            </Typography>
+            <Button variant="outlined" onClick={() => setModal(true)}>
+              Добавить каминь
+            </Button>
+          </Box>
         </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -54,9 +61,9 @@ const Stones = () => {
                   m={'0 auto'}
                 >
                   <CardContent>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{maxWidth: 345}}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{height: 140}}
                         image="/static/images/placeholders/covers/6.jpg"
                         title="Contemplative Reptile"
                       />
@@ -77,9 +84,9 @@ const Stones = () => {
                     </Card>
                   </CardContent>
                   <CardContent>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{maxWidth: 345}}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{height: 140}}
                         image="/static/images/placeholders/covers/6.jpg"
                         title="Contemplative Reptile"
                       />
@@ -100,9 +107,9 @@ const Stones = () => {
                     </Card>
                   </CardContent>
                   <CardContent>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{maxWidth: 345}}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{height: 140}}
                         image="/static/images/placeholders/covers/6.jpg"
                         title="Contemplative Reptile"
                       />
@@ -123,9 +130,9 @@ const Stones = () => {
                     </Card>
                   </CardContent>
                   <CardContent>
-                    <Card sx={{ maxWidth: 345 }}>
+                    <Card sx={{maxWidth: 345}}>
                       <CardMedia
-                        sx={{ height: 140 }}
+                        sx={{height: 140}}
                         image="/static/images/placeholders/covers/6.jpg"
                         title="Contemplative Reptile"
                       />
@@ -151,9 +158,7 @@ const Stones = () => {
           </Grid>
         </Grid>
       </Container>
-      <Dialog onClose={() => setModal(false)} open={modal}>
-        <DialogTitle>Добавление новой услуги</DialogTitle>
-      </Dialog>
+      <StonesDialog modal={modal} setModal={setModal}/>
     </>
   );
 };
