@@ -10,6 +10,8 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import StonesDialog from "./StonesDialog";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 
 const Stones = () => {
   const [modal, setModal] = useState(false);
@@ -78,8 +80,8 @@ const Stones = () => {
                         </Typography>
                       </CardContent>
                       <CardActions>
-                        <Button size="small">Share</Button>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small" startIcon={<EditTwoToneIcon />}>Редактировать</Button>
+                        <Button size="small" startIcon={<DeleteIcon fontSize="small"/>}>Удалить </Button>
                       </CardActions>
                     </Card>
                   </CardContent>
