@@ -75,6 +75,9 @@ const Forms = Loader(lazy(() => import('src/content/pages/Components/Forms')));
 const Status404 = Loader(
   lazy(() => import('src/content/pages/Status/Status404'))
 );
+const Login = Loader(
+  lazy(() => import('src/content/pages/Status/login'))
+);
 const Status500 = Loader(
   lazy(() => import('src/content/pages/Status/Status500'))
 );
@@ -93,6 +96,10 @@ const routes: RouteObject[] = [
       {
         path: '/',
         element: <Main/>
+      },
+      {
+        path: '/login',
+        element: <Login/>
       },
     ]
   },

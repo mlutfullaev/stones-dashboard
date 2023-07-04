@@ -41,6 +41,17 @@ const Stones = () => {
       .then((res: { data: StoneT[] }) => setStones(res.data));
   }, []);
 
+  const deleteStone = (id) => {
+    if (confirm('yes or no')) {
+      setStones((oldStones) => oldStones.filter(stone => stone.id !== id))
+      axios.delete(`http://1627061-ci09322.twc1.net:3001/stones/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          "Content-type": "application/json",
+        }})
+    }
+  }
+
   return (
     <>
       <Helmet>
@@ -91,7 +102,7 @@ const Stones = () => {
                         <Card sx={{maxWidth: 345}}>
                           <CardMedia
                             sx={{height: 140}}
-                            image={`http://1627061-ci09322.twc1.net:3001/upload/fayl/${stone.uploadedFile[0].id}`}
+                            image={`http://1627061-ci09322.twc1.net:3001/upload/fayl/${stone.uploadedFile[0]?.id}`}
                             title="Contemplative Reptile"
                           />
                           <CardContent>
@@ -111,7 +122,7 @@ const Stones = () => {
                             }}>Редактировать</Button>
                             <Button size="small" startIcon={<Preview/>}
                                     href={`http://vkamne.com/product/${stone.id}`}>Подробнее</Button>
-                            <Button size="small" startIcon={<DeleteIcon fontSize="small"/>}>Удалить </Button>
+                            <Button size="small" startIcon={<DeleteIcon fontSize="small"/>} onClick={() => deleteStone(stone.id)}>Удалить </Button>
                           </CardActions>
                         </Card>
                       </CardContent>) : null}

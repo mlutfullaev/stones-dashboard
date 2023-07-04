@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Dialog from "@mui/material/Dialog";
-import {IconButton, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import StonesVariants from "./StonesVariants";
 import StonesImages from "./StonesImages";
+import axios from "axios";
 
 type StoneT = {
   title: string,
@@ -57,6 +57,17 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
   const [similarGranites, setSimilarGranites] = useState("");
   const [variantsError, setVariantsError] = useState(false);
 
+
+  const createFile = async (file) => {
+    const response = await fetch(`http://1627061-ci09322.twc1.net:3001/upload/fayl/${file?.id}`);
+    const data = await response.blob();
+    const metadata = {
+      type: 'image/jpeg'
+    };
+    const img = new File([data], "test.jpg", metadata);
+    setImages(oldImages => [...oldImages, img])
+  }
+
   useEffect(() => {
     if (stone) {
       setTitle(stone.title)
@@ -70,6 +81,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
       setMohsHardness(stone.mohsHardness || '')
       setSimilarGranites(stone.similarGranites || '')
       setVariants(stone.variants || [])
+      stone.uploadedFile.forEach(createFile)
     } else {
       setTitle('')
       setOtherNames('')
@@ -82,8 +94,62 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
       setMohsHardness('')
       setSimilarGranites('')
       setVariants([])
+      setImages([])
     }
   }, [modal]);
+
+  const sending = () => {
+    if (!variants.length) return setVariantsError(true)
+    if (!title || !country || !categoryTitle) return setError(true)
+    const data = {
+      title,
+      country,
+      categoryTitle,
+      abrasion,
+      radioactivityClass,
+      waterAbsorption,
+      mohsHardness,
+      density,
+      otherNames,
+      similarGranites,
+      variants,
+    }
+
+    axios.post('http://1627061-ci09322.twc1.net:3001/stones/', data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          "Content-type": "application/json",
+        }
+      })
+      .then((stonebirbalo) => {
+        if (images.length) {
+          images.forEach(img => {
+            var bodyFormData = new FormData();
+            bodyFormData.append("file", img);
+
+            // отпраляю его на backend
+            axios
+              .post("http://1627061-ci09322.twc1.net:3001/upload/", bodyFormData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              })
+              .then((res) => {
+                // Если все хорошо то изменяю его folderId на текущий id папки
+                axios
+                  .patch(`http://1627061-ci09322.twc1.net:3001/upload/${res.data.id}`, {
+                    stoneId: stonebirbalo.data.id,
+                  })
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          setImages([])
+          setModal(false)
+        }
+      })
+  }
 
   return (
     <Dialog onClose={() => {
@@ -122,59 +188,57 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
               label="Класс радиоактивности"
               value={radioactivityClass}
               onChange={(e) => setRadioactivityClass(e.target.value)}
-              error={error && !radioactivityClass}
             />
             <TextField
               id="outlined-required"
               label="Водопоглощение"
               value={waterAbsorption}
               onChange={(e) => setWaterAbsorption(e.target.value)}
-              error={error && !waterAbsorption}
             />
             <TextField
               id="outlined-required"
               label="Плотность"
               value={density}
               onChange={(e) => setDensity(e.target.value)}
-              error={error && !density}
             />
             <TextField
               id="outlined-required"
               label="Истираемость"
               value={abrasion}
               onChange={(e) => setAbrasion(e.target.value)}
-              error={error && !abrasion}
             />
             <TextField
-              required
               id="outlined-required"
               label="Другие названия"
               value={otherNames}
               onChange={(e) => setOtherNames(e.target.value)}
-              error={error && !otherNames}
             />
             <TextField
-              required
+              id="outlined-required"
+              label="Твердость по ш/м"
+              value={mohsHardness}
+              onChange={(e) => setMohsHardness(e.target.value)}
+            />
+            <TextField
               id="outlined-required"
               label="Похожие граниты"
               value={similarGranites}
               onChange={(e) => setSimilarGranites(e.target.value)}
-              error={error && !similarGranites}
             />
             <TextField
               required
               id="outlined-required"
               label="Название категории"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              error={error && !title}
+              value={categoryTitle}
+              onChange={(e) => setCategoryTitle(e.target.value)}
+              error={error && !categoryTitle}
             />
           </Box>
         </AccordionDetails>
       </Accordion>
-      <StonesVariants error={variantsError} setError={setVariantsError} variants={variants} setVariants={setVariants} />
-      <StonesImages images={images} setImages={setImages} />
-      <Button sx={{ margin: 1 }} variant="contained">
+      <StonesVariants error={variantsError} setError={setVariantsError} variants={variants} setVariants={setVariants}/>
+      <StonesImages images={images} setImages={setImages}/>
+      <Button sx={{margin: 1}} onClick={sending} variant="contained">
         Добавить
       </Button>
     </Dialog>

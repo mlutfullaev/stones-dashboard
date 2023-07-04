@@ -8,6 +8,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
 const StonesImages = ({images, setImages}) => {
+  useEffect(() => {
+    console.log(images)
+  }, [images]);
   return (
     <Accordion>
       <AccordionSummary
@@ -18,14 +21,17 @@ const StonesImages = ({images, setImages}) => {
         <Typography>Картинки</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Grid gap='10px' p='10px 0' container spacing={2} style={{alignItems: 'start', justifyContent: 'center'}}>
+        <Grid gap="10px" p="10px 0" container spacing={2} style={{alignItems: "start", justifyContent: "center"}}>
           {images.length ? images.map((img, i) =>
-            <Grid item xs={5.5} key={i} style={{position: 'relative', padding: 0}}>
-              <Button onClick={() => setImages(oldImages => oldImages.filter((item, index) => index !== i))} variant="contained" style={{position: 'absolute', top: 10, right: 10, padding: 5, minWidth: 35}}>&times;</Button>
-              <img style={{maxHeight: 300, width: '100%'}} src={img} alt=""/>
+            <Grid item xs={5.5} key={i} style={{position: "relative", padding: 0}}>
+              <Button onClick={() => setImages(oldImages => oldImages.filter((item, index) => index !== i))} variant="contained" style={{position: "absolute", top: 10, right: 10, padding: 5, minWidth: 35}}>&times;</Button>
+              <img style={{maxHeight: 300, width: "100%"}} src={URL.createObjectURL(img)} alt=""/>
             </Grid>) : null}
         </Grid>
-        <input type="file" id="image-input" hidden onChange={(e) => setImages(oldImages => [...oldImages, URL.createObjectURL(e.target.files[0])])}/>
+        <input type="file" id="image-input" hidden onChange={(e) => {
+          setImages(oldImages => [...oldImages, e.target.files[0]])
+          console.log(e.target.files[0])
+        }}/>
         <label htmlFor="image-input" id="label-image-input" style={{
           padding: "8px 20px",
           marginTop: 20,
