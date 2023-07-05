@@ -6,11 +6,9 @@ import {Grid, Typography} from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import ImagesList from "../ImagesList";
 
-const StonesImages = ({images, setImages}) => {
-  useEffect(() => {
-    console.log(images)
-  }, [images]);
+const StonesImages = ({images, setImages, error}) => {
   return (
     <Accordion>
       <AccordionSummary
@@ -21,31 +19,26 @@ const StonesImages = ({images, setImages}) => {
         <Typography>Картинки</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Grid gap="10px" p="10px 0" container spacing={2} style={{alignItems: "start", justifyContent: "center"}}>
-          {images.length ? images.map((img, i) =>
-            <Grid item xs={5.5} key={i} style={{position: "relative", padding: 0}}>
-              <Button onClick={() => setImages(oldImages => oldImages.filter((item, index) => index !== i))} variant="contained" style={{position: "absolute", top: 10, right: 10, padding: 5, minWidth: 35}}>&times;</Button>
-              <img style={{maxHeight: 300, width: "100%"}} src={URL.createObjectURL(img)} alt=""/>
-            </Grid>) : null}
-        </Grid>
-        <input type="file" id="image-input" hidden onChange={(e) => {
-          setImages(oldImages => [...oldImages, e.target.files[0]])
-          console.log(e.target.files[0])
-        }}/>
-        <label htmlFor="image-input" id="label-image-input" style={{
-          padding: "8px 20px",
-          marginTop: 20,
-          background: "transparent",
-          border: "1px solid rgba(85, 105, 255, 0.5)",
-          borderRadius: 10,
-          color: "#5569ff",
-          cursor: "pointer",
-          fontWeight: "bold",
-          fontSize: "0.875rem",
-          lineHeight: "1.75"
-        }}>
-          Добавить картинку
-        </label>
+        <ImagesList images={images} setImages={setImages} />
+        <Box style={{paddingTop: 20}}>
+          <input type="file" id="image-input" hidden onChange={(e) => {
+            setImages(oldImages => [...oldImages, e.target.files[0]])
+            console.log(e.target.files[0])
+          }}/>
+          <label htmlFor="image-input" id="label-image-input" style={{
+            padding: "8px 20px",
+            background: "transparent",
+            border: error && !images.length ? '1px solid #FF1943': "1px solid rgba(85, 105, 255, 0.5)",
+            borderRadius: 10,
+            color: error && !images.length ? '#FF1943' : "#5569ff",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontSize: "0.875rem",
+            lineHeight: "1.75"
+          }}>
+            Добавить картинку
+          </label>
+        </Box>
       </AccordionDetails>
     </Accordion>
   );

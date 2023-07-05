@@ -12,6 +12,7 @@ import Preview from "@mui/icons-material/Preview";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import axios from "axios";
 import SuspenseLoader from "../../../components/SuspenseLoader";
+import {deleting} from "../../../helpers/fetching";
 
 type StoneT = {
   title: string,
@@ -34,6 +35,7 @@ const Stones = () => {
   const [modal, setModal] = useState(false);
   const [stones, setStones] = useState<StoneT[]>([]);
   const [editingStone, setEditingStone] = useState<StoneT | null>(null);
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     axios
@@ -41,16 +43,10 @@ const Stones = () => {
       .then((res: { data: StoneT[] }) => setStones(res.data));
   }, []);
 
-  const deleteStone = (id) => {
-    if (confirm('yes or no')) {
-      setStones((oldStones) => oldStones.filter(stone => stone.id !== id))
-      axios.delete(`http://1627061-ci09322.twc1.net:3001/stones/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          "Content-type": "application/json",
-        }})
-    }
-  }
+  useEffect(() => {
+    console.log(editingStone)
+  }, [editingStone]);
+
 
   return (
     <>
@@ -117,12 +113,15 @@ const Stones = () => {
                           </CardContent>
                           <CardActions>
                             <Button size="small" startIcon={<EditTwoToneIcon/>} onClick={() => {
-                              setEditingStone(stone)
-                              setModal(true)
+                              setEditingStone(stone);
+                              setUpdating(true);
+                              setModal(true);
                             }}>Редактировать</Button>
                             <Button size="small" startIcon={<Preview/>}
                                     href={`http://vkamne.com/product/${stone.id}`}>Подробнее</Button>
-                            <Button size="small" startIcon={<DeleteIcon fontSize="small"/>} onClick={() => deleteStone(stone.id)}>Удалить </Button>
+                            <Button size="small" startIcon={<DeleteIcon fontSize="small"/>} onClick={() => deleting('stones/', stone.id, setStones)}>
+                              Удалить
+                            </Button>
                           </CardActions>
                         </Card>
                       </CardContent>) : null}
@@ -133,7 +132,7 @@ const Stones = () => {
           </Grid>
         </Grid>
       </Container>
-      <StonesDialog modal={modal} stone={editingStone} setModal={setModal} setStone={setEditingStone}/>
+      <StonesDialog modal={modal} stone={editingStone} setModal={setModal} setStone={setEditingStone} update={updating}/>
     </>
   );
 };
