@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import {Typography} from "@mui/material";
 import {patchImg, patching, sending, sendingImg} from "../../../../helpers/fetching";
 import axios from "axios";
-import {checkFiles, createFile, updateArray} from "../../../../helpers/helpers";
+import {createFile, updateArray} from "../../../../helpers/helpers";
 
 const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBlogs}) => {
   const [isImageNew, setIsImageNew] = useState(false);
