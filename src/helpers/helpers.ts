@@ -25,8 +25,18 @@ export const checkFiles = async (file, secondFile) => {
     type: file.mimetype
   };
   const firstFile = new File([data], file.originalname, metadata);
+  // console.log(firstFile)
+  // console.log(secondFile)
   if (URL.createObjectURL(firstFile) === URL.createObjectURL(secondFile)) {
     result = true;
   }
   return result;
+}
+
+
+export const updateArray = (array, data) => {
+  const newArray = [...array]
+  const index = newArray.findIndex(item => item.id === data.id)
+  newArray[index] = data
+  return newArray
 }

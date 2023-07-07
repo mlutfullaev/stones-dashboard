@@ -43,11 +43,6 @@ const Stones = () => {
       .then((res: { data: StoneT[] }) => setStones(res.data));
   }, []);
 
-  useEffect(() => {
-    console.log(editingStone)
-  }, [editingStone]);
-
-
   return (
     <>
       <Helmet>
@@ -132,7 +127,7 @@ const Stones = () => {
           </Grid>
         </Grid>
       </Container>
-      <StonesDialog modal={modal} stone={editingStone} setModal={setModal} setStone={setEditingStone} update={updating}/>
+      <StonesDialog modal={modal} stone={editingStone} setModal={setModal} setStone={setEditingStone} update={updating} setStones={setStones}/>
     </>
   );
 };

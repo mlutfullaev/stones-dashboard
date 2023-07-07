@@ -5,10 +5,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {Grid, Typography} from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import ImagesList from "../ImagesList";
 
-const StonesImages = ({images, setImages, error}) => {
+const StonesImages = ({images, setImages, error, setDeletingImages, setAddingImages}) => {
   return (
     <Accordion>
       <AccordionSummary
@@ -19,11 +18,10 @@ const StonesImages = ({images, setImages, error}) => {
         <Typography>Картинки</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <ImagesList images={images} setImages={setImages} />
+        <ImagesList images={images} setImages={setImages} setDeletingImages={setDeletingImages} />
         <Box style={{paddingTop: 20}}>
           <input type="file" id="image-input" hidden onChange={(e) => {
             setImages(oldImages => [...oldImages, e.target.files[0]])
-            console.log(e.target.files[0])
           }}/>
           <label htmlFor="image-input" id="label-image-input" style={{
             padding: "8px 20px",

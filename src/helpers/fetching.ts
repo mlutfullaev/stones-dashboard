@@ -10,7 +10,7 @@ export const sending = (url, data) => {
 }
 
 export const patching = (url, data) => {
-  return axios.patch(`http://1627061-ci09322.twc1.net:3001/stones/${url}`, data, {
+  return axios.patch(`http://1627061-ci09322.twc1.net:3001/${url}`, data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       "Content-type": "application/json",

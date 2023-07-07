@@ -11,7 +11,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import StonesVariants from "./StonesVariants";
 import StonesImages from "./StonesImages";
 import axios from "axios";
-import {patchImg, sending, sendingImg} from "../../../helpers/fetching";
+import {patchImg, patching, sending, sendingImg} from "../../../helpers/fetching";
 import {createFiles} from "../../../helpers/helpers";
 
 type StoneT = {
@@ -37,9 +37,10 @@ type StonesDialogT = {
   stone: StoneT | null
   setStone: React.Dispatch<React.SetStateAction<StoneT | null>>
   update: boolean
+  setStones: React.Dispatch<React.SetStateAction<StoneT[]>>
 }
 
-const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone, update}) => {
+const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone, update, setStones}) => {
   const [variants, setVariants] = useState<{
     format: string,
     pricerub: string,
@@ -47,6 +48,8 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
     product: string
   }[]>([]);
   const [images, setImages] = useState([]);
+  const [deletingImages, setDeletingImages] = useState([]);
+  const [addingImages, setAddingImages] = useState([]);
   const [error, setError] = useState(false);
   const [title, setTitle] = useState(stone ? stone.title : "");
   const [country, setCountry] = useState("");
@@ -63,37 +66,37 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
 
   useEffect(() => {
     if (stone) {
-      setTitle(stone.title)
-      setOtherNames(stone.otherNames || '')
-      setDensity(stone.density || '')
-      setCountry(stone.country)
-      setAbrasion(stone.abrasion || '')
-      setWaterAbsorption(stone.waterAbsorption || '')
-      setRadioactivityClass(stone.radioactivityClass || '')
-      setCategoryTitle(stone.categoryTitle || '')
-      setMohsHardness(stone.mohsHardness || '')
-      setSimilarGranites(stone.similarGranites || '')
-      setVariants(stone.variants || [])
-      stone.uploadedFile.forEach((file) => createFiles(file, setImages))
+      setTitle(stone.title);
+      setOtherNames(stone.otherNames || "");
+      setDensity(stone.density || "");
+      setCountry(stone.country);
+      setAbrasion(stone.abrasion || "");
+      setWaterAbsorption(stone.waterAbsorption || "");
+      setRadioactivityClass(stone.radioactivityClass || "");
+      setCategoryTitle(stone.categoryTitle || "");
+      setMohsHardness(stone.mohsHardness || "");
+      setSimilarGranites(stone.similarGranites || "");
+      setVariants(stone.variants || []);
+      stone.uploadedFile.forEach((file) => createFiles(file, setImages));
     } else {
-      setTitle('')
-      setOtherNames('')
-      setDensity('')
-      setCountry('')
-      setAbrasion('')
-      setWaterAbsorption('')
-      setRadioactivityClass('')
-      setCategoryTitle('')
-      setMohsHardness('')
-      setSimilarGranites('')
-      setVariants([])
-      setImages([])
+      setTitle("");
+      setOtherNames("");
+      setDensity("");
+      setCountry("");
+      setAbrasion("");
+      setWaterAbsorption("");
+      setRadioactivityClass("");
+      setCategoryTitle("");
+      setMohsHardness("");
+      setSimilarGranites("");
+      setVariants([]);
+      setImages([]);
     }
   }, [modal]);
 
   const send = () => {
-    if (!variants.length) return setVariantsError(true)
-    if (!title || !country || !categoryTitle || !images.length) return setError(true)
+    if (!variants.length) return setVariantsError(true);
+    if (!title || !country || !categoryTitle || !images.length) return setError(true);
     const data = {
       title,
       country,
@@ -106,25 +109,34 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
       otherNames,
       similarGranites,
       variants,
-    }
+    };
 
-    sending('stones/', data)
+    sending("stones/", data)
       .then(stoneRes => {
         if (images.length) {
-          images.forEach(img => {
+          images.forEach((img, i) => {
             sendingImg(img)
               .then(imgRes => {
                 patchImg(imgRes.data.id, {stoneId: stoneRes.data.id})
-              })
-          })
-          setImages([])
-          setModal(false)
+                  .then(() => {
+                    if (i === images.length - 1) {
+                      axios.get(`http://1627061-ci09322.twc1.net:3001/stones/${stoneRes.data.id}`)
+                        .then((newStone) => {
+                          setStones(oldStones => [...oldStones, newStone.data])
+                          setImages([]);
+                          setModal(false);
+                        })
+                    }
+                  })
+              });
+          });
         }
-      })
-  }
-  const updating = () => {
-    if (!variants.length) return setVariantsError(true)
-    if (!title || !country || !categoryTitle) return setError(true)
+      });
+  };
+
+  const updating = async () => {
+    if (!variants.length) return setVariantsError(true);
+    if (!title || !country || !categoryTitle) return setError(true);
     const data = {
       title,
       country,
@@ -137,54 +149,41 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
       otherNames,
       similarGranites,
       variants,
-    }
+    };
 
-    axios.patch('http://1627061-ci09322.twc1.net:3001/stones/' + stone.id, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        "Content-type": "application/json",
-      }
-    })
-      .then((stonebirbalo) => {
-        if (images.length) {
-          images.forEach(img => {
-            var bodyFormData = new FormData();
-            bodyFormData.append("file", img);
-
-            // отпраляю его на backend
-            axios
-              .post("http://1627061-ci09322.twc1.net:3001/upload/", bodyFormData, {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                },
-              })
-              .then((res) => {
-                // Если все хорошо то изменяю его folderId на текущий id папки
-                axios
-                  .patch(`http://1627061-ci09322.twc1.net:3001/upload/${res.data.id}`, {
-                    stoneId: stonebirbalo.data.id,
-                  })
-                  .then(() => {
-                    axios.get('http://1627061-ci09322.twc1.net:3001/stones/' + stonebirbalo.data.id)
-                      .then(re => setStone(re.data))
-                  })
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          })
-          setImages([])
-          setModal(false)
-        }
-      })
-  }
+    patching(`stones/${stone.id}`, data)
+      .then(stoneRes => {
+        stone.uploadedFile.forEach((uploadedFile, i) => {
+          axios.delete(`http://45.89.190.203:3001/upload/${uploadedFile.id}`)
+            .then(() => {
+              if (i === stone.uploadedFile.length - 1) {
+                if (images.length) {
+                  images.forEach((img, i) => {
+                    sendingImg(img)
+                      .then(imgRes => {
+                        patchImg(imgRes.data.id, {stoneId: stoneRes.data.id})
+                          .then(() => {
+                            if (i === images.length - 1) {
+                              setStone(null)
+                              setModal(false);
+                            }
+                          })
+                      });
+                  });
+                }
+              }
+            })
+        })
+      });
+  };
 
   return (
     <Dialog onClose={() => {
       setModal(false);
       setStone(null);
     }} open={modal}>
-      <Typography variant="h3" style={{textAlign: "center"}} p="20px 20px 0">{update ? 'Обнавление камня' : 'Добавление камня'}</Typography>
+      <Typography variant="h3" style={{textAlign: "center"}}
+                  p="20px 20px 0">{update ? "Обнавление камня" : "Добавление камня"}</Typography>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon/>}
@@ -265,9 +264,10 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, stone, setStone
         </AccordionDetails>
       </Accordion>
       <StonesVariants error={variantsError} setError={setVariantsError} variants={variants} setVariants={setVariants}/>
-      <StonesImages images={images} setImages={setImages} error={error}/>
+      <StonesImages images={images} setImages={setImages} error={error} setDeletingImages={setDeletingImages}
+                    setAddingImages={setAddingImages}/>
       <Button sx={{margin: 1}} onClick={update ? updating : send} variant="contained">
-        {update ? 'Обнавить' : 'Добавить'}
+        {update ? "Обнавить" : "Добавить"}
       </Button>
     </Dialog>
   );
