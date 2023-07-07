@@ -215,7 +215,7 @@ function SidebarMenu() {
                   to="/management/stones"
                   startIcon={<BrightnessLowTwoToneIcon />}
                 >
-                  Камни
+                  Камины
                 </Button>
               </ListItem>
               <ListItem component="div">

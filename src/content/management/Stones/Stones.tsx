@@ -13,6 +13,7 @@ import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import axios from "axios";
 import SuspenseLoader from "../../../components/SuspenseLoader";
 import {deleting} from "../../../helpers/fetching";
+import Dialog from "@mui/material/Dialog";
 
 type StoneT = {
   title: string,
@@ -78,7 +79,7 @@ const Stones = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Typography variant="h3" component="h3" gutterBottom>Список камней</Typography>
+                <Typography variant="h3" component="h3" gutterBottom>Список камин</Typography>
                 <Suspense fallback={<SuspenseLoader/>}>
                   <Grid
                     container
@@ -127,7 +128,13 @@ const Stones = () => {
           </Grid>
         </Grid>
       </Container>
-      <StonesDialog modal={modal} stone={editingStone} setModal={setModal} setStone={setEditingStone} update={updating} setStones={setStones}/>
+      <Dialog onClose={() => {
+        setModal(false);
+        setEditingStone(null);
+        setUpdating(false)
+      }} open={modal}>
+        <StonesDialog modal={modal} editingStone={editingStone} setModal={setModal} setEditingStone={setEditingStone} update={updating} setStones={setStones}/>
+      </Dialog>
     </>
   );
 };

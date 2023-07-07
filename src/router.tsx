@@ -21,7 +21,7 @@ const Main = Loader(lazy(() => import('src/content/Main')));
 
 // Management
 
-const Services = Loader(lazy(() => import('src/content/management/Services')));
+const Services = Loader(lazy(() => import('src/content/management/Services/Services')));
 const Blog = Loader(lazy(() => import('src/content/management/Blog/Blog')));
 const Reviews = Loader(lazy(() => import('src/content/management/Reviews/Reviews')));
 const Stones = Loader(lazy(() => import('src/content/management/Stones/Stones')));
