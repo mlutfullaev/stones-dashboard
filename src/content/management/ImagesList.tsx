@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-const ImagesList = ({images, setImages, error}) => {
+const ImagesList = ({images, setImages, imageError, setImageError}) => {
   return (
     <Box>
       {images.length ?
@@ -14,9 +14,13 @@ const ImagesList = ({images, setImages, error}) => {
               <Grid item xs={5.5} key={i} style={{position: "relative", padding: 0}}>
                 <Button onClick={() => {
                   setImages(oldImages => {
-                    const newArray = [...oldImages]
-                    const index = newArray.findIndex(item => item.file === img.file)
-                    newArray[index].deleted = true;
+                    let newArray = [...oldImages]
+                    if (img.id) {
+                      const index = newArray.findIndex(item => item.file === img.file)
+                      newArray[index].deleted = true;
+                    } else {
+                      newArray = newArray.filter(item => item.file !== img.file)
+                    }
                     return newArray
                   })
                 }} variant="contained"
@@ -27,13 +31,14 @@ const ImagesList = ({images, setImages, error}) => {
       <Box>
         <input type="file" id="image-input" hidden onChange={(e) => {
           setImages(oldImages => [...oldImages, {file: e.target.files[0], id: null, deleted: false}])
+          setImageError(false)
         }}/>
         <label htmlFor="image-input" id="label-image-input" style={{
           padding: "8px 20px",
           background: "transparent",
-          border: error && !images.length ? '1px solid #FF1943' : "1px solid rgba(85, 105, 255, 0.5)",
+          border: imageError ? '1px solid #FF1943' : "1px solid rgba(85, 105, 255, 0.5)",
           borderRadius: 10,
-          color: error && !images.length ? '#FF1943' : "#5569ff",
+          color: imageError ? '#FF1943' : "#5569ff",
           cursor: "pointer",
           fontWeight: "bold",
           fontSize: "0.875rem",

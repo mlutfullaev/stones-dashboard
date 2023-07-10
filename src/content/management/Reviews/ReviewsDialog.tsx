@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import {patching, sending} from "../../../helpers/fetching";
 import {updateArray} from "../../../helpers/helpers";
 
-const ReviewsDialog = ({update, setModal, modal, editingReview, setEditingReview, setReviews}) => {
+const ReviewsDialog = ({update, setUpdate, setModal, modal, editingReview, setEditingReview, setReviews}) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState(false);
@@ -37,9 +37,10 @@ const ReviewsDialog = ({update, setModal, modal, editingReview, setEditingReview
 
     patching(`reviews/${editingReview.id}`, data)
       .then(res => {
-        setModal(false)
         setEditingReview(null)
-        setReviews(oldReviews => updateArray(oldReviews, res.data))
+        setUpdate(false)
+        setModal(false)
+        updateArray(setReviews, res.data)
       })
   };
 

@@ -51,9 +51,17 @@ const Reviews = () => {
           <Typography variant="h3" component="h3" gutterBottom>
             Отзывы
           </Typography>
-          <Button variant="outlined" onClick={() => setModal(true)}>
-            Добавить отзыв
-          </Button>
+          <Box style={{display: "flex", gap: 20, alignItems: "center"}}>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Всего: {reviews.length}
+            </Typography>
+            <Button variant="outlined" onClick={() => {
+              setUpdate(false)
+              setModal(true)
+            }}>
+              Добавить отзыв
+            </Button>
+          </Box>
         </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -131,11 +139,11 @@ const Reviews = () => {
         </Grid>
       </Container>
       <Dialog onClose={() => {
+        setEditingReview(null)
         setModal(false)
         setUpdate(false);
-        setEditingReview(null)
       }} open={modal}>
-        <ReviewsDialog update={update} setModal={setModal} modal={modal} editingReview={editingReview}
+        <ReviewsDialog update={update} setUpdate={setUpdate} setModal={setModal} modal={modal} editingReview={editingReview}
                        setEditingReview={setEditingReview} setReviews={setReviews}/>
       </Dialog>
     </>

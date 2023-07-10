@@ -46,12 +46,17 @@ const Blog = () => {
           <Typography variant="h3" component="h3" gutterBottom>
             Блог
           </Typography>
-          <Button variant="outlined" onClick={() => {
-            setUpdate(false)
-            setModal(true)
-          }}>
-            Добавить статью
-          </Button>
+          <Box style={{display: "flex", gap: 20, alignItems: "center"}}>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Всего: {blogs.length}
+            </Typography>
+            <Button variant="outlined" onClick={() => {
+              setUpdate(false)
+              setModal(true)
+            }}>
+              Добавить статью
+            </Button>
+          </Box>
         </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">

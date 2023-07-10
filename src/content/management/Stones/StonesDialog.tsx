@@ -48,8 +48,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
     product: string
   }[]>([]);
   const [images, setImages] = useState([]);
-  const [deletingImages, setDeletingImages] = useState([]);
-  const [addingImages, setAddingImages] = useState([]);
+  const [imageError, setImageError] = useState(false);
   const [error, setError] = useState(false);
   const [title, setTitle] = useState(editingStone ? editingStone.title : "");
   const [country, setCountry] = useState("");
@@ -122,13 +121,13 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
                     if (i === images.length - 1) {
                       axios.get(`http://1627061-ci09322.twc1.net:3001/stones/${stoneRes.data.id}`)
                         .then((newStoneRes) => {
-                          setStones(oldStones => [...oldStones, newStoneRes.data])
+                          setStones(oldStones => [...oldStones, newStoneRes.data]);
                           setImages([]);
-                          setEditingStone(null)
+                          setEditingStone(null);
                           setModal(false);
-                        })
+                        });
                     }
-                  })
+                  });
               });
           });
         }
@@ -159,23 +158,23 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
             if (i === images.length - 1) {
               axios.get(`http://45.89.190.203:3001/stones/${stoneRes.data.id}`)
                 .then(newStoneRes => {
-                  updateArray(setStones, newStoneRes.data)
-                  setImages([])
-                  setEditingStone(null)
+                  updateArray(setStones, newStoneRes.data);
+                  setImages([]);
+                  setEditingStone(null);
                   setModal(false);
-                })
+                });
             }
-          }
+          };
           images.forEach((image, i) => {
             if (image.deleted) {
               axios.delete(`http://45.89.190.203:3001/upload/${image.id}`)
-                .then(() => end(i))
+                .then(() => end(i));
             } else if (!image.id) {
               sendingImg(image.file)
                 .then(imgRes => patchImg(imgRes.data.id, {stoneId: stoneRes.data.id}))
-                .then(() => end(i))
+                .then(() => end(i));
             }
-          })
+          });
         }
       });
   };
@@ -274,7 +273,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
             <Typography>Картинки</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ImagesList images={images} setImages={setImages} error={error}/>
+            <ImagesList images={images} setImages={setImages} imageError={imageError} setImageError={setImageError}/>
           </AccordionDetails>
         </Accordion>
         <Button sx={{margin: 1}} onClick={update ? updating : send} variant="contained">

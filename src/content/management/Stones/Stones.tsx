@@ -56,13 +56,16 @@ const Stones = () => {
           alignItems="center"
         >
           <Typography variant="h3" component="h3" gutterBottom>
-            Камни
+            Камины
           </Typography>
           <Box style={{display: "flex", gap: 20, alignItems: "center"}}>
             <Typography variant="h4" component="h4" gutterBottom>
               Всего: {stones.length}
             </Typography>
-            <Button variant="outlined" onClick={() => setModal(true)}>
+            <Button variant="outlined" onClick={() => {
+              setUpdating(false)
+              setModal(true)
+            }}>
               Добавить каминь
             </Button>
           </Box>

@@ -1,25 +1,16 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import Scrollbar from 'src/components/Scrollbar';
-import { SidebarContext } from 'src/contexts/SidebarContext';
+import {SidebarContext} from 'src/contexts/SidebarContext';
 
-import {
-  Box,
-  Drawer,
-  alpha,
-  styled,
-  Divider,
-  useTheme,
-  Button,
-  lighten,
-  darken,
-  Tooltip
-} from '@mui/material';
+import {alpha, Box, Button, darken, Divider, Drawer, lighten, styled, useTheme} from '@mui/material';
 
 import SidebarMenu from './SidebarMenu';
 import Logo from 'src/components/LogoSign';
+import {Logout} from "@mui/icons-material";
+import {useNavigate} from "react-router";
 
 const SidebarWrapper = styled(Box)(
-  ({ theme }) => `
+  ({theme}) => `
         width: ${theme.sidebar.width};
         min-width: ${theme.sidebar.width};
         color: ${theme.colors.alpha.trueWhite[70]};
@@ -31,9 +22,16 @@ const SidebarWrapper = styled(Box)(
 );
 
 function Sidebar() {
-  const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
+  const navigate = useNavigate();
+  const {sidebarToggle, toggleSidebar} = useContext(SidebarContext);
   const closeSidebar = () => toggleSidebar();
   const theme = useTheme();
+
+  const logout = () => {
+    localStorage.setItem('accessToken', '')
+    localStorage.setItem('accessTokenTime', '')
+    navigate('/login')
+  }
 
   return (
     <>
@@ -74,6 +72,22 @@ function Sidebar() {
           />
           <SidebarMenu />
         </Scrollbar>
+        <Divider
+          sx={{
+            background: theme.colors.alpha.trueWhite[10]
+          }}
+        />
+        <Box p={2}>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<Logout/>}
+            fullWidth
+            onClick={logout}
+          >
+            Log out
+          </Button>
+        </Box>
       </SidebarWrapper>
       <Drawer
         sx={{

@@ -49,9 +49,17 @@ const Services = () => {
           <Typography variant="h3" component="h3" gutterBottom>
             Услуги
           </Typography>
-          <Button variant="outlined" onClick={() => setModal(true)}>
-            Добавить услуги
-          </Button>
+          <Box style={{display: "flex", gap: 20, alignItems: "center"}}>
+            <Typography variant="h4" component="h4" gutterBottom>
+              Всего: {services.length}
+            </Typography>
+            <Button variant="outlined" onClick={() => {
+              setUpdate(false)
+              setModal(true)
+            }}>
+              Добавить услуги
+            </Button>
+          </Box>
         </Grid>
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -113,7 +121,7 @@ const Services = () => {
         setUpdate(false)
         setModal(false)
       }} open={modal}>
-        <ServicesDialog update={update} modal={modal} setModal={setModal} editingService={editingService} setEditingService={setEditingService} setServices={setServices} />
+        <ServicesDialog update={update} setUpdate={setUpdate} modal={modal} setModal={setModal} editingService={editingService} setEditingService={setEditingService} setServices={setServices} />
       </Dialog>
     </>
   );

@@ -212,7 +212,7 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/management/stones"
+                  to="/stones"
                   startIcon={<BrightnessLowTwoToneIcon />}
                 >
                   Камины
@@ -223,7 +223,7 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/management/blog"
+                  to="/blog"
                   startIcon={<MmsTwoToneIcon />}
                 >
                   Блог
@@ -234,7 +234,7 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/management/reviews"
+                  to="/reviews"
                   startIcon={<MmsTwoToneIcon />}
                 >
                   Отзывы
@@ -245,284 +245,10 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
-                  to="/management/stone-pictures"
-                  startIcon={<MmsTwoToneIcon />}
-                >
-                  Картинки камней
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/management/services"
+                  to="/services"
                   startIcon={<MmsTwoToneIcon />}
                 >
                   Услуги
-                </Button>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Аккаунт
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/management/profile/details"
-                  startIcon={<AccountCircleTwoToneIcon />}
-                >
-                  Профиль пользователя
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/management/profile/settings"
-                  startIcon={<DisplaySettingsTwoToneIcon />}
-                >
-                  Настройки аккаунта
-                </Button>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Dashboards
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/dashboards/crypto"
-                  startIcon={<BrightnessLowTwoToneIcon />}
-                >
-                  Cryptocurrency
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/dashboards/messenger"
-                  startIcon={<MmsTwoToneIcon />}
-                >
-                  Messenger
-                </Button>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Management
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/management/transactions"
-                  startIcon={<TableChartTwoToneIcon />}
-                >
-                  Transactions List
-                </Button>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Components
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/buttons"
-                  startIcon={<BallotTwoToneIcon />}
-                >
-                  Buttons
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/modals"
-                  startIcon={<BeachAccessTwoToneIcon />}
-                >
-                  Modals
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/accordions"
-                  startIcon={<EmojiEventsTwoToneIcon />}
-                >
-                  Accordions
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/tabs"
-                  startIcon={<FilterVintageTwoToneIcon />}
-                >
-                  Tabs
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/badges"
-                  startIcon={<HowToVoteTwoToneIcon />}
-                >
-                  Badges
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/tooltips"
-                  startIcon={<LocalPharmacyTwoToneIcon />}
-                >
-                  Tooltips
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/avatars"
-                  startIcon={<RedeemTwoToneIcon />}
-                >
-                  Avatars
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/cards"
-                  startIcon={<SettingsTwoToneIcon />}
-                >
-                  Cards
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/components/forms"
-                  startIcon={<TrafficTwoToneIcon />}
-                >
-                  Forms
-                </Button>
-              </ListItem>
-            </List>
-          </SubMenuWrapper>
-        </List>
-        <List
-          component="div"
-          subheader={
-            <ListSubheader component="div" disableSticky>
-              Extra Pages
-            </ListSubheader>
-          }
-        >
-          <SubMenuWrapper>
-            <List component="div">
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/status/404"
-                  startIcon={<CheckBoxTwoToneIcon />}
-                >
-                  Error 404
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/status/500"
-                  startIcon={<CameraFrontTwoToneIcon />}
-                >
-                  Error 500
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/status/coming-soon"
-                  startIcon={<ChromeReaderModeTwoToneIcon />}
-                >
-                  Coming Soon
-                </Button>
-              </ListItem>
-              <ListItem component="div">
-                <Button
-                  disableRipple
-                  component={RouterLink}
-                  onClick={closeSidebar}
-                  to="/status/maintenance"
-                  startIcon={<WorkspacePremiumTwoToneIcon />}
-                >
-                  Maintenance
                 </Button>
               </ListItem>
             </List>
@@ -532,5 +258,272 @@ function SidebarMenu() {
     </>
   );
 }
+
+// const others = <>
+//
+//   <List
+//     component="div"
+//     subheader={
+//       <ListSubheader component="div" disableSticky>
+//         Аккаунт
+//       </ListSubheader>
+//     }
+//   >
+//     <SubMenuWrapper>
+//       <List component="div">
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/management/profile/details"
+//             startIcon={<AccountCircleTwoToneIcon />}
+//           >
+//             Профиль пользователя
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/management/profile/settings"
+//             startIcon={<DisplaySettingsTwoToneIcon />}
+//           >
+//             Настройки аккаунта
+//           </Button>
+//         </ListItem>
+//       </List>
+//     </SubMenuWrapper>
+//   </List>
+//   <List
+//     component="div"
+//     subheader={
+//       <ListSubheader component="div" disableSticky>
+//         Dashboards
+//       </ListSubheader>
+//     }
+//   >
+//     <SubMenuWrapper>
+//       <List component="div">
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/dashboards/crypto"
+//             startIcon={<BrightnessLowTwoToneIcon />}
+//           >
+//             Cryptocurrency
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/dashboards/messenger"
+//             startIcon={<MmsTwoToneIcon />}
+//           >
+//             Messenger
+//           </Button>
+//         </ListItem>
+//       </List>
+//     </SubMenuWrapper>
+//   </List>
+//   <List
+//     component="div"
+//     subheader={
+//       <ListSubheader component="div" disableSticky>
+//         Management
+//       </ListSubheader>
+//     }
+//   >
+//     <SubMenuWrapper>
+//       <List component="div">
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/management/transactions"
+//             startIcon={<TableChartTwoToneIcon />}
+//           >
+//             Transactions List
+//           </Button>
+//         </ListItem>
+//       </List>
+//     </SubMenuWrapper>
+//   </List>
+//   <List
+//     component="div"
+//     subheader={
+//       <ListSubheader component="div" disableSticky>
+//         Components
+//       </ListSubheader>
+//     }
+//   >
+//     <SubMenuWrapper>
+//       <List component="div">
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/buttons"
+//             startIcon={<BallotTwoToneIcon />}
+//           >
+//             Buttons
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/modals"
+//             startIcon={<BeachAccessTwoToneIcon />}
+//           >
+//             Modals
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/accordions"
+//             startIcon={<EmojiEventsTwoToneIcon />}
+//           >
+//             Accordions
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/tabs"
+//             startIcon={<FilterVintageTwoToneIcon />}
+//           >
+//             Tabs
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/badges"
+//             startIcon={<HowToVoteTwoToneIcon />}
+//           >
+//             Badges
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/tooltips"
+//             startIcon={<LocalPharmacyTwoToneIcon />}
+//           >
+//             Tooltips
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/avatars"
+//             startIcon={<RedeemTwoToneIcon />}
+//           >
+//             Avatars
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/cards"
+//             startIcon={<SettingsTwoToneIcon />}
+//           >
+//             Cards
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/components/forms"
+//             startIcon={<TrafficTwoToneIcon />}
+//           >
+//             Forms
+//           </Button>
+//         </ListItem>
+//       </List>
+//     </SubMenuWrapper>
+//   </List>
+//   <List
+//     component="div"
+//     subheader={
+//       <ListSubheader component="div" disableSticky>
+//         Extra Pages
+//       </ListSubheader>
+//     }
+//   >
+//     <SubMenuWrapper>
+//       <List component="div">
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/status/404"
+//             startIcon={<CheckBoxTwoToneIcon />}
+//           >
+//             Error 404
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/status/500"
+//             startIcon={<CameraFrontTwoToneIcon />}
+//           >
+//             Error 500
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/status/coming-soon"
+//             startIcon={<ChromeReaderModeTwoToneIcon />}
+//           >
+//             Coming Soon
+//           </Button>
+//         </ListItem>
+//         <ListItem component="div">
+//           <Button
+//             disableRipple
+//             component={RouterLink}
+//             onClick={closeSidebar}
+//             to="/status/maintenance"
+//             startIcon={<WorkspacePremiumTwoToneIcon />}
+//           >
+//             Maintenance
+//           </Button>
+//         </ListItem>
+//       </List>
+//     </SubMenuWrapper>
+{/*  </List>*/}
+{/*</>*/}
 
 export default SidebarMenu;

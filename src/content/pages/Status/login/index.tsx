@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
 
@@ -32,6 +32,10 @@ function Status404() {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem('accessToken')) navigate('/')
+  }, []);
+
   const sending = () => {
     if (!user || !password) setError(true);
 
@@ -40,9 +44,11 @@ function Status404() {
       password
     })
       .then(res => {
+        const time = new Date().getTime() + "";
         setError(false);
-        setErrorMessage(false)
+        setErrorMessage(false);
         localStorage.setItem("accessToken", res.data.access_token);
+        localStorage.setItem("accessTokenTime", time);
         setUser("");
         setPassword("");
         navigate("/");
@@ -76,7 +82,7 @@ function Status404() {
               onChange={(e) => setPassword(e.target.value)}
               error={error && !password}
             />
-            {errorMessage ? <Typography style={{textAlign: 'center', color: 'rgba(187,1,1,0.9)'}} variant='h5'>Пользователь не найден</Typography> : null}
+            {errorMessage ? <Typography style={{textAlign: "center", color: "rgba(187,1,1,0.9)"}} variant="h5">Пользователь не найден</Typography> : null}
             <Button sx={{margin: "30px auto"}} onClick={sending} variant="contained">
               Добавить
             </Button>

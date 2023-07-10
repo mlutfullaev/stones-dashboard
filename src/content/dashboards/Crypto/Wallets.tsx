@@ -12,6 +12,8 @@ import {
   styled
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -75,6 +77,15 @@ const CardAddAction = styled(Card)(
 );
 
 function Wallets() {
+  const [stats, setStats] = useState({services: 0,blog: 0,stone: 0,reviews: 0});
+
+  useEffect(() => {
+    axios.get("http://1627061-ci09322.twc1.net:3001/models/")
+      .then(res => {
+        setStats(res.data)
+      });
+  }, []);
+
   return (
     <>
       <Box
@@ -85,14 +96,7 @@ function Wallets() {
           pb: 3
         }}
       >
-        <Typography variant="h3">Wallets</Typography>
-        <Button
-          size="small"
-          variant="outlined"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-        >
-          Add new wallet
-        </Button>
+        <Typography variant="h3">Статистика</Typography>
       </Box>
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3} item>
@@ -102,29 +106,24 @@ function Wallets() {
             }}
           >
             <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="BTC"
-                  src="/static/images/placeholders/logo/bitcoin.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Bitcoin
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                BTC
+              <Typography variant="h3" noWrap>
+                Камни
               </Typography>
               <Box
                 sx={{
                   pt: 3
                 }}
               >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $3,586.22
-                </Typography>
                 <Typography variant="subtitle2" noWrap>
-                  1.25843 BTC
+                  Всего:
                 </Typography>
+                <Typography variant="h3" gutterBottom noWrap>
+                  {stats.stone} штук
+                </Typography>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" href='/stones'>Перейти</Button>
               </Box>
             </CardContent>
           </Card>
@@ -136,29 +135,24 @@ function Wallets() {
             }}
           >
             <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="Ripple"
-                  src="/static/images/placeholders/logo/ripple.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Ripple
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                XRP
+              <Typography variant="h3" noWrap>
+                Блог
               </Typography>
               <Box
                 sx={{
                   pt: 3
                 }}
               >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $586.83
-                </Typography>
                 <Typography variant="subtitle2" noWrap>
-                  5,783 XRP
+                  Всего:
                 </Typography>
+                <Typography variant="h3" gutterBottom noWrap>
+                  {stats.blog} штук
+                </Typography>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" href='/blog'>Перейти</Button>
               </Box>
             </CardContent>
           </Card>
@@ -170,49 +164,56 @@ function Wallets() {
             }}
           >
             <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="Cardano"
-                  src="/static/images/placeholders/logo/cardano.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Cardano
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                ADA
+              <Typography variant="h3" noWrap>
+                Услуги
               </Typography>
               <Box
                 sx={{
                   pt: 3
                 }}
               >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $54,985.00
-                </Typography>
                 <Typography variant="subtitle2" noWrap>
-                  34,985 ADA
+                  Всего:
                 </Typography>
+                <Typography variant="h3" gutterBottom noWrap>
+                  {stats.services} штук
+                </Typography>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" href='/services'>Перейти</Button>
               </Box>
             </CardContent>
           </Card>
         </Grid>
         <Grid xs={12} sm={6} md={3} item>
-          <Tooltip arrow title="Click to add a new wallet">
-            <CardAddAction>
-              <CardActionArea
+          <Card
+            sx={{
+              px: 1
+            }}
+          >
+            <CardContent>
+              <Typography variant="h3" noWrap>
+                Отзывы
+              </Typography>
+              <Box
                 sx={{
-                  px: 1
+                  pt: 3
                 }}
               >
-                <CardContent>
-                  <AvatarAddWrapper>
-                    <AddTwoToneIcon fontSize="large" />
-                  </AvatarAddWrapper>
-                </CardContent>
-              </CardActionArea>
-            </CardAddAction>
-          </Tooltip>
+                <Typography variant="subtitle2" noWrap>
+                  Всего:
+                </Typography>
+                <Typography variant="h3" gutterBottom noWrap>
+                  {stats.reviews} штук
+                </Typography>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" href='/reviews'>Перейти</Button>
+              </Box>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     </>

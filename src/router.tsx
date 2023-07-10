@@ -98,64 +98,6 @@ const routes: RouteObject[] = [
         element: <Main/>
       },
       {
-        path: '/login',
-        element: <Login/>
-      },
-    ]
-  },
-  {
-    path: 'status',
-    element: <BaseLayout/>,
-    children: [
-      {
-        path: '',
-        element: <Navigate to="404" replace/>
-      },
-      {
-        path: '404',
-        element: <Status404/>
-      },
-      {
-        path: '500',
-        element: <Status500/>
-      },
-      {
-        path: 'maintenance',
-        element: <StatusMaintenance/>
-      },
-      {
-        path: 'coming-soon',
-        element: <StatusComingSoon/>
-      }
-    ]
-  },
-  {
-    path: 'dashboards',
-    element: <SidebarLayout/>,
-    children: [
-      {
-        path: '',
-        element: <Navigate to="crypto" replace/>
-      },
-      {
-        path: 'crypto',
-        element: <Crypto/>
-      },
-      {
-        path: 'messenger',
-        element: <Messenger/>
-      }
-    ]
-  },
-  {
-    path: 'management',
-    element: <SidebarLayout/>,
-    children: [
-      {
-        path: '',
-        element: <Navigate to="transactions" replace/>
-      },
-      {
         path: 'services',
         element: <Services />
       },
@@ -175,75 +117,133 @@ const routes: RouteObject[] = [
         path: 'reviews',
         element: <Reviews />
       },
-      {
-        path: 'transactions',
-        element: <Transactions/>
-      },
-      {
-        path: 'profile',
-        children: [
-          {
-            path: '',
-            element: <Navigate to="details" replace/>
-          },
-          {
-            path: 'details',
-            element: <UserProfile/>
-          },
-          {
-            path: 'settings',
-            element: <UserSettings/>
-          }
-        ]
-      }
     ]
   },
   {
-    path: '/components',
-    element: <SidebarLayout/>,
-    children: [
-      {
-        path: '',
-        element: <Navigate to="buttons" replace/>
-      },
-      {
-        path: 'buttons',
-        element: <Buttons/>
-      },
-      {
-        path: 'modals',
-        element: <Modals/>
-      },
-      {
-        path: 'accordions',
-        element: <Accordions/>
-      },
-      {
-        path: 'tabs',
-        element: <Tabs/>
-      },
-      {
-        path: 'badges',
-        element: <Badges/>
-      },
-      {
-        path: 'tooltips',
-        element: <Tooltips/>
-      },
-      {
-        path: 'avatars',
-        element: <Avatars/>
-      },
-      {
-        path: 'cards',
-        element: <Cards/>
-      },
-      {
-        path: 'forms',
-        element: <Forms/>
-      }
-    ]
+    path: '/login',
+    element: <Login/>
   },
+  // {
+  //   path: 'status',
+  //   element: <BaseLayout/>,
+  //   children: [
+  //     {
+  //       path: '',
+  //      element: <Navigate to="404" replace/>
+  //    },
+  //    {
+  //       path: '404',
+  //       element: <Status404/>
+  //     },
+  //     {
+  //       path: '500',
+  //       element: <Status500/>
+  //     },
+  //     {
+  //       path: 'maintenance',
+  //       element: <StatusMaintenance/>
+  //     },
+  //     {
+  //       path: 'coming-soon',
+  //       element: <StatusComingSoon/>
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'dashboards',
+  //   element: <SidebarLayout/>,
+  //   children: [
+  //     {
+  //       path: '',
+  //       element: <Navigate to="crypto" replace/>
+  //     },
+  //     {
+  //       path: 'crypto',
+  //       element: <Crypto/>
+  //     },
+  //     {
+  //       path: 'messenger',
+  //       element: <Messenger/>
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: 'management',
+  //   element: <SidebarLayout/>,
+  //   children: [
+  //     {
+  //       path: '',
+  //       element: <Navigate to="transactions" replace/>
+  //     },
+  //     {
+  //       path: 'transactions',
+  //       element: <Transactions/>
+  //     },
+  //     {
+  //       path: 'profile',
+  //       children: [
+  //         {
+  //           path: '',
+  //           element: <Navigate to="details" replace/>
+  //         },
+  //         {
+  //           path: 'details',
+  //           element: <UserProfile/>
+  //         },
+  //         {
+  //           path: 'settings',
+  //           element: <UserSettings/>
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/components',
+  //   element: <SidebarLayout/>,
+  //   children: [
+  //     {
+  //       path: '',
+  //       element: <Navigate to="buttons" replace/>
+  //     },
+  //     {
+  //       path: 'buttons',
+  //       element: <Buttons/>
+  //     },
+  //     {
+  //       path: 'modals',
+  //       element: <Modals/>
+  //     },
+  //     {
+  //       path: 'accordions',
+  //       element: <Accordions/>
+  //     },
+  //     {
+  //       path: 'tabs',
+  //       element: <Tabs/>
+  //     },
+  //     {
+  //       path: 'badges',
+  //       element: <Badges/>
+  //     },
+  //     {
+  //       path: 'tooltips',
+  //       element: <Tooltips/>
+  //     },
+  //     {
+  //       path: 'avatars',
+  //       element: <Avatars/>
+  //     },
+  //     {
+  //       path: 'cards',
+  //       element: <Cards/>
+  //     },
+  //     {
+  //       path: 'forms',
+  //       element: <Forms/>
+  //     }
+  //   ]
+  // },
   {
     path: '*',
     element: <Status404 />

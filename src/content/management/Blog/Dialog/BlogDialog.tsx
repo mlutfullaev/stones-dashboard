@@ -78,7 +78,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
                     .then(() => {
                       axios.get(`http://1627061-ci09322.twc1.net:3001/blog/${blogRes.data.id}`)
                         .then((newBlog) => {
-                          setBlogs(oldBlogs => updateArray(oldBlogs, newBlog.data))
+                          updateArray(setBlogs, newBlog.data)
                           setImage(null);
                           setEditingBlog(null)
                           setModal(false);
@@ -89,7 +89,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
         } else {
           axios.get(`http://1627061-ci09322.twc1.net:3001/blog/${blogRes.data.id}`)
             .then((newBlog) => {
-              setBlogs(oldBlogs => updateArray(oldBlogs, newBlog.data))
+              updateArray(setBlogs, newBlog.data)
               setImage(null);
               setEditingBlog(null)
               setModal(false);
