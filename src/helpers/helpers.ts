@@ -1,6 +1,8 @@
+import {siteUrl} from "../consts";
+
 export const createFiles = async (files, setItem) => {
   for (const file of files) {
-    const response = await fetch(`http://1627061-ci09322.twc1.net:3001/upload/fayl/${file.id}`);
+    const response = await fetch(`${siteUrl}upload/fayl/${file.id}`);
     const data = await response.blob();
     const metadata = {
       type: file.mimetype
@@ -10,7 +12,7 @@ export const createFiles = async (files, setItem) => {
   }
 }
 export const createFile = async (file, setItem) => {
-  const response = await fetch(`http://1627061-ci09322.twc1.net:3001/upload/fayl/${file.id}`);
+  const response = await fetch(`${siteUrl}upload/fayl/${file.id}`);
   const data = await response.blob();
   const metadata = {
     type: file.mimetype
@@ -21,7 +23,7 @@ export const createFile = async (file, setItem) => {
 
 export const checkFiles = async (file, secondFile) => {
   let result = false;
-  const response = await fetch(`http://1627061-ci09322.twc1.net:3001/upload/fayl/${file.id}`);
+  const response = await fetch(`${siteUrl}upload/fayl/${file.id}`);
   const data = await response.blob();
   const metadata = {
     type: file.mimetype

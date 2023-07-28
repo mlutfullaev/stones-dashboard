@@ -1,7 +1,8 @@
 import axios from "axios";
+import {siteUrl} from "../consts";
 
 export const sending = (url, data) => {
-  return axios.post(`http://1627061-ci09322.twc1.net:3001/${url}`, data, {
+  return axios.post(`${siteUrl}${url}`, data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       "Content-type": "application/json",
@@ -10,7 +11,7 @@ export const sending = (url, data) => {
 }
 
 export const patching = (url, data) => {
-  return axios.patch(`http://1627061-ci09322.twc1.net:3001/${url}`, data, {
+  return axios.patch(`${siteUrl}${url}`, data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       "Content-type": "application/json",
@@ -23,7 +24,7 @@ export const sendingImg = (img) => {
 
   // отпраляю его на backend
   return axios
-    .post("http://1627061-ci09322.twc1.net:3001/upload/", bodyFormData, {
+    .post(`${siteUrl}upload/`, bodyFormData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -31,11 +32,11 @@ export const sendingImg = (img) => {
 }
 
 export const patchImg = (id, data) => {
-  return axios.patch(`http://1627061-ci09322.twc1.net:3001/upload/${id}`, data)
+  return axios.patch(`${siteUrl}upload/${id}`, data)
 }
 export const deleting = (url, id, setState) => {
   if (confirm("Вы точно хотите удалить")) {
-    axios.delete(`http://1627061-ci09322.twc1.net:3001/${url}${id}`, {
+    axios.delete(`${siteUrl}${url}${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         "Content-type": "application/json",

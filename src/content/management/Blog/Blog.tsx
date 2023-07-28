@@ -13,6 +13,7 @@ import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import Preview from "@mui/icons-material/Preview";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {deleting} from "../../../helpers/fetching";
+import {siteUrl} from "../../../consts";
 
 type BlogT = {
   id: number,
@@ -28,7 +29,7 @@ const Blog = () => {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
-    axios.get("http://1627061-ci09322.twc1.net:3001/blog")
+    axios.get(`${siteUrl}blog`)
       .then((res: { data: BlogT[] }) => setBlogs(res.data));
   }, []);
 
@@ -86,7 +87,7 @@ const Blog = () => {
                       <Card sx={{maxWidth: 345}}>
                         <CardMedia
                           sx={{height: 140}}
-                          image={`http://1627061-ci09322.twc1.net:3001/upload/fayl/${blog.uploadedFile[0]?.id}`}
+                          image={`${siteUrl}upload/fayl/${blog.uploadedFile[0]?.id}`}
                           title="Contemplative Reptile"
                         />
                         <CardContent>

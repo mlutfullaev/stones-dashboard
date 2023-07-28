@@ -14,6 +14,7 @@ import axios from "axios";
 import SuspenseLoader from "../../../components/SuspenseLoader";
 import {deleting} from "../../../helpers/fetching";
 import Dialog from "@mui/material/Dialog";
+import {siteUrl} from "../../../consts";
 
 type StoneT = {
   title: string,
@@ -40,7 +41,7 @@ const Stones = () => {
 
   useEffect(() => {
     axios
-      .get("http://45.89.190.203:3001/stones")
+      .get(`${siteUrl}stones`)
       .then((res: { data: StoneT[] }) => setStones(res.data));
   }, []);
 
@@ -97,7 +98,7 @@ const Stones = () => {
                         <Card sx={{maxWidth: 345}}>
                           <CardMedia
                             sx={{height: 140}}
-                            image={`http://1627061-ci09322.twc1.net:3001/upload/fayl/${stone.uploadedFile[0]?.id}`}
+                            image={`${siteUrl}upload/fayl/${stone.uploadedFile[0]?.id}`}
                             title="Contemplative Reptile"
                           />
                           <CardContent>

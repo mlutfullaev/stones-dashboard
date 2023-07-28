@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Typography} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -13,6 +13,7 @@ import {patchImg, patching, sending, sendingImg} from "../../../helpers/fetching
 import {createFiles, updateArray} from "../../../helpers/helpers";
 import StonesVariants from "./StonesVariants";
 import ImagesList from "../ImagesList";
+import {siteUrl} from "../../../consts";
 
 type StoneT = {
   title: string,
@@ -119,7 +120,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
                 patchImg(imgRes.data.id, {stoneId: stoneRes.data.id})
                   .then(() => {
                     if (i === images.length - 1) {
-                      axios.get(`http://1627061-ci09322.twc1.net:3001/stones/${stoneRes.data.id}`)
+                      axios.get(`${siteUrl}stones/${stoneRes.data.id}`)
                         .then((newStoneRes) => {
                           setStones(oldStones => [...oldStones, newStoneRes.data]);
                           setImages([]);
@@ -156,7 +157,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
         if (images.length) {
           const end = (i) => {
             if (i === images.length - 1) {
-              axios.get(`http://45.89.190.203:3001/stones/${stoneRes.data.id}`)
+              axios.get(`${siteUrl}stones/${stoneRes.data.id}`)
                 .then(newStoneRes => {
                   updateArray(setStones, newStoneRes.data);
                   setImages([]);
@@ -167,7 +168,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
           };
           images.forEach((image, i) => {
             if (image.deleted) {
-              axios.delete(`http://45.89.190.203:3001/upload/${image.id}`)
+              axios.delete(`${siteUrl}upload/${image.id}`)
                 .then(() => end(i));
             } else if (!image.id) {
               sendingImg(image.file)

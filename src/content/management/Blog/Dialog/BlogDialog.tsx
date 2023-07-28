@@ -6,6 +6,7 @@ import {Typography} from "@mui/material";
 import {patchImg, patching, sending, sendingImg} from "../../../../helpers/fetching";
 import axios from "axios";
 import {createFile, updateArray} from "../../../../helpers/helpers";
+import {siteUrl} from "../../../../consts";
 
 const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBlogs}) => {
   const [isImageNew, setIsImageNew] = useState(false);
@@ -48,7 +49,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
                 .then(() => {
                   reset();
                   setModal(false);
-                  axios.get("http://1627061-ci09322.twc1.net:3001/blog/" + blogRes.data.id)
+                  axios.get(`${siteUrl}blog/${blogRes.data.id}`)
                     .then(newBlogRes => setBlogs(oldBlogs => {
                       let arr = [...oldBlogs];
                       arr.push(newBlogRes.data);
@@ -70,13 +71,13 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
       .then(blogRes => {
         if (isImageNew) {
           setIsImageNew(false)
-          axios.delete(`http://45.89.190.203:3001/upload/${editingBlog.uploadedFile[0].id}`)
+          axios.delete(`${siteUrl}upload/${editingBlog.uploadedFile[0].id}`)
             .then(() => {
               sendingImg(image)
                 .then(imgRes => {
                   patchImg(imgRes.data.id, {blogId: blogRes.data.id})
                     .then(() => {
-                      axios.get(`http://1627061-ci09322.twc1.net:3001/blog/${blogRes.data.id}`)
+                      axios.get(`${siteUrl}blog/${blogRes.data.id}`)
                         .then((newBlog) => {
                           updateArray(setBlogs, newBlog.data)
                           setImage(null);
@@ -87,7 +88,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
                 })
             })
         } else {
-          axios.get(`http://1627061-ci09322.twc1.net:3001/blog/${blogRes.data.id}`)
+          axios.get(`${siteUrl}blog/${blogRes.data.id}`)
             .then((newBlog) => {
               updateArray(setBlogs, newBlog.data)
               setImage(null);

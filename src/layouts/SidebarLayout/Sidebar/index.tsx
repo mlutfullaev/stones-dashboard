@@ -85,7 +85,7 @@ function Sidebar() {
             fullWidth
             onClick={logout}
           >
-            Log out
+            Выйти
           </Button>
         </Box>
       </SidebarWrapper>
