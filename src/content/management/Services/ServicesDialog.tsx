@@ -8,12 +8,18 @@ import {createFiles, updateArray} from "../../../helpers/helpers";
 import {patchImg, patching, sending, sendingImg} from "../../../helpers/fetching";
 import ImagesList from "../ImagesList";
 import {siteUrl} from "../../../consts";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
 
 const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, setEditingService, setServices}) => {
   const [title, setTitle] = useState("");
   const [images, setImages] = useState<{ file: File, id: number | null, deleted: false }[]>([]);
   const [info, setInfo] = useState("");
   const [serviceTitle, setServiceTitle] = useState("");
+  const [interorekster, setInterorekster] = useState('')
   const [error, setError] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -23,6 +29,7 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
       setInfo(editingService.info);
       setServiceTitle(editingService.serviceTitle);
       createFiles(editingService.uploadedFile, setImages);
+      setInterorekster(editingService.interorekster || '')
     } else {
       reset();
     }
@@ -32,15 +39,18 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
     setTitle("");
     setInfo("");
     setServiceTitle("");
+    setInterorekster('')
     setImages([]);
   };
 
   const send = () => {
-    if (!title || !info || !serviceTitle || !images.length) return setError(true);
+    if (!images.length) return setImageError(true)
+    if (!title || !info || !serviceTitle || !interorekster) return setError(true);
     const data = {
       title,
       info,
-      serviceTitle
+      serviceTitle,
+      interorekster
     };
 
     sending("service/", data)
@@ -64,7 +74,7 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
       });
   };
   const updating = async () => {
-    if (!title || !info || !serviceTitle) return setError(true);
+    if (!title || !info || !serviceTitle || !interorekster) return setError(true);
     let deleted = 0;
     images.forEach(img => {
       if (img.deleted) {
@@ -77,7 +87,8 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
     const data = {
       title,
       info,
-      serviceTitle
+      serviceTitle,
+      interorekster
     };
 
     patching(`service/${editingService.id}`, data)
@@ -117,8 +128,7 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
 
   return (
     <Box p={2}>
-      <Typography variant="h3" style={{textAlign: "center"}}
-                  p="10px 20px 20px">{update ? "Обнавление услуги" : "Добавление услуги"}</Typography>
+      <Typography variant="h3" style={{textAlign: "center"}} p="10px 20px 20px">{update ? "Обнавление услуги" : "Добавление услуги"}</Typography>
       <Box style={{display: "flex", gap: 10, flexDirection: "column"}}>
         <TextField
           required
@@ -144,7 +154,27 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
           onChange={(e) => setInfo(e.target.value)}
           error={error && !info}
         />
-
+        <FormControl component="fieldset" style={error && !interorekster ? {borderBottom: '2px solid red'} : {}}>
+          <RadioGroup
+            row
+            aria-label="gender"
+            value={interorekster}
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel
+              value="Изделия в интерьере"
+              control={<Radio />}
+              label="Изделия в интерьере"
+              onChange={() => setInterorekster('Изделия в интерьере')}
+            />
+            <FormControlLabel
+              value="Изделия в экстерьере"
+              control={<Radio />}
+              label="Изделия в экстерьере"
+              onChange={() => setInterorekster('Изделия в экстерьере')}
+            />
+          </RadioGroup>
+        </FormControl>
         <ImagesList images={images} setImages={setImages} imageError={imageError} setImageError={setImageError}/>
         <Button sx={{margin: 1}} onClick={update ? updating : send} variant="contained">
           {update ? "Обнавить" : "Добавить"}

@@ -14,6 +14,7 @@ import {createFiles, updateArray} from "../../../helpers/helpers";
 import StonesVariants from "./StonesVariants";
 import ImagesList from "../ImagesList";
 import {siteUrl} from "../../../consts";
+ import MenuItem from "@mui/material/MenuItem";
 
 type StoneT = {
   title: string,
@@ -29,6 +30,7 @@ type StoneT = {
   mohsHardness: string,
   id: number,
   variants: { format: string, pricerub: string, priceusd: string, product: string }[],
+  color: string
   createdAt: string
 }
 
@@ -40,6 +42,11 @@ type StonesDialogT = {
   update: boolean
   setStones: React.Dispatch<React.SetStateAction<StoneT[]>>
 }
+
+const categories = ['Гранит', 'Мозаика', 'Мрамор', 'Оникс', 'Травертин'];
+const colors = ['#fff', '#000', '#964b00', '#FFD700', '#5cace6', '#808080', '#F5F5DC', '#008000', '#ff0000']
+const colorLabels = {'#fff': 'Белый', '#000': 'Черный', '#964b00': 'Коричневый', '#FFD700': 'Желтый', '#5cace6': 'Голубой', '#808080': 'Серый', '#F5F5DC': 'Бежевый', '#008000': 'Зеленный', '#ff0000': 'Красный'}
+
 
 const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, setEditingStone, update, setStones}) => {
   const [variants, setVariants] = useState<{
@@ -62,8 +69,12 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
   const [otherNames, setOtherNames] = useState("");
   const [similarGranites, setSimilarGranites] = useState("");
   const [variantsError, setVariantsError] = useState(false);
+  const [color, setColor] = useState('')
 
 
+  // const handleChange = (event) => {
+  //   setCurrency(event.target.value);
+  // };
   useEffect(() => {
     if (editingStone) {
       setTitle(editingStone.title);
@@ -76,6 +87,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
       setCategoryTitle(editingStone.categoryTitle || "");
       setMohsHardness(editingStone.mohsHardness || "");
       setSimilarGranites(editingStone.similarGranites || "");
+      setColor(editingStone.color || '')
       setVariants(editingStone.variants || []);
       createFiles(editingStone.uploadedFile, setImages);
     } else {
@@ -89,10 +101,15 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
       setCategoryTitle("");
       setMohsHardness("");
       setSimilarGranites("");
+      setColor('')
       setVariants([]);
       setImages([]);
     }
   }, [modal]);
+
+  useEffect(() => {
+    console.log(color)
+  }, [color]);
 
   const send = () => {
     if (!variants.length) return setVariantsError(true);
@@ -108,6 +125,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
       density,
       otherNames,
       similarGranites,
+      color,
       variants,
     };
 
@@ -150,6 +168,7 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
       otherNames,
       similarGranites,
       variants,
+      color,
     };
 
     patching(`stones/${editingStone.id}`, data)
@@ -253,14 +272,42 @@ const StonesDialog: React.FC<StonesDialogT> = ({modal, setModal, editingStone, s
                 value={similarGranites}
                 onChange={(e) => setSimilarGranites(e.target.value)}
               />
+              {/*<TextField*/}
+              {/*  required*/}
+              {/*  id="outlined-required"*/}
+              {/*  label="Название категории"*/}
+              {/*  value={categoryTitle}*/}
+              {/*  onChange={(e) => setCategoryTitle(e.target.value)}*/}
+              {/*  error={error && !categoryTitle}*/}
+              {/*/>*/}
               <TextField
-                required
-                id="outlined-required"
-                label="Название категории"
+                id="outlined-select-currency"
+                select
+                label="Категория"
                 value={categoryTitle}
+                style={{width: 220}}
                 onChange={(e) => setCategoryTitle(e.target.value)}
-                error={error && !categoryTitle}
-              />
+              >
+                {categories.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Цвет"
+                value={color}
+                style={{width: 220}}
+                onChange={(e) => setColor(e.target.value)}
+              >
+                {colors.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {colorLabels[option]}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Box>
           </AccordionDetails>
         </Accordion>

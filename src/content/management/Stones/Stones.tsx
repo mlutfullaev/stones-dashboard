@@ -30,6 +30,7 @@ type StoneT = {
   mohsHardness: string,
   id: number,
   variants: { format: string, pricerub: string, priceusd: string, product: string }[],
+  color: string
   createdAt: string
 }
 
