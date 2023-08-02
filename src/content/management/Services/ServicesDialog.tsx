@@ -7,6 +7,7 @@ import axios from "axios";
 import {createFiles, updateArray} from "../../../helpers/helpers";
 import {patchImg, patching, sending, sendingImg} from "../../../helpers/fetching";
 import ImagesList from "../ImagesList";
+import {siteUrl} from "../../../consts";
 
 const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, setEditingService, setServices}) => {
   const [title, setTitle] = useState("");
@@ -50,7 +51,7 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
               .then((imgRes => {
                 patchImg(imgRes.data.id, {serviceTitle: serviceRes.data.title})
                   .then(() => {
-                    axios.get("http://1627061-ci09322.twc1.net:3001/service/" + serviceRes.data.id)
+                    axios.get(`${siteUrl}service/${serviceRes.data.id}`)
                       .then(newServiceRes => {
                         setServices(oldServices => [...oldServices, newServiceRes.data]);
                         reset();

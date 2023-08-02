@@ -14,6 +14,7 @@ import Preview from "@mui/icons-material/Preview";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {deleting} from "../../../helpers/fetching";
 import ServicesDialog from "./ServicesDialog";
+import {siteUrl} from "../../../consts";
 
 type ServiceT = {
   id: number,
@@ -89,7 +90,7 @@ const Services = () => {
                       <Card sx={{ maxWidth: 345 }}>
                         <CardMedia
                           sx={{ height: 140 }}
-                          image={`http://1627061-ci09322.twc1.net:3001/upload/fayl/${service.uploadedFile[0]?.id}`}
+                          image={`${siteUrl}upload/fayl/${service.uploadedFile[0]?.id}`}
                           title="Contemplative Reptile"
                         />
                         <CardContent>

@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
+import {siteUrl} from "../../../../consts";
 
 
 const MainContent = styled(Box)(
@@ -39,7 +40,7 @@ function Status404() {
   const sending = () => {
     if (!user || !password) setError(true);
 
-    axios.post("http://1627061-ci09322.twc1.net:3001/auth/login", {
+    axios.post(`${siteUrl}auth/login`, {
       username: user,
       password
     })
@@ -84,7 +85,7 @@ function Status404() {
             />
             {errorMessage ? <Typography style={{textAlign: "center", color: "rgba(187,1,1,0.9)"}} variant="h5">Пользователь не найден</Typography> : null}
             <Button sx={{margin: "30px auto"}} onClick={sending} variant="contained">
-              Добавить
+              Войти
             </Button>
           </Box>
         </Container>

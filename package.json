@@ -1,5 +1,6 @@
 {
   "name": "Админ панель по камням",
+  "homepage": "./",
   "version": "2.0.0",
   "title": "Админ панель по камням",
   "description": "This free and open source admin dashboard template is built for React and it’s bootstrapped from Facebook’s create-react-app. All NPM dependencies are up to date and it contains multiple fully customized components based on the popular frontend components framework, Material-UI.",
@@ -21,6 +22,7 @@
     "axios": "^1.4.0",
     "clsx": "1.1.1",
     "date-fns": "2.28.0",
+    "dotenv": "^16.3.1",
     "history": "5.3.0",
     "nprogress": "0.2.0",
     "numeral": "2.0.6",

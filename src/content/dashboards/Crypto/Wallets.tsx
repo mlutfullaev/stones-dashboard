@@ -14,6 +14,7 @@ import {
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {siteUrl} from "../../../consts";
 
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -80,7 +81,7 @@ function Wallets() {
   const [stats, setStats] = useState({services: 0,blog: 0,stone: 0,reviews: 0});
 
   useEffect(() => {
-    axios.get("http://1627061-ci09322.twc1.net:3001/models/")
+    axios.get(`${siteUrl}models/`)
       .then(res => {
         setStats(res.data)
       });
