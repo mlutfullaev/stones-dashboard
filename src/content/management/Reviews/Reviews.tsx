@@ -11,6 +11,7 @@ import axios from "axios";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {deleting} from "../../../helpers/fetching";
+import { siteUrl } from "src/consts";
 
 const rateArray = (rate: number) => {
   const array = [];
@@ -33,7 +34,7 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    axios.get("http://45.89.190.203:3001/reviews")
+    axios.get(`${siteUrl}reviews`)
       .then(res => setReviews(res.data));
   }, []);
 
