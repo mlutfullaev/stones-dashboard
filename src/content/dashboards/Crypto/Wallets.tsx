@@ -78,7 +78,7 @@ const CardAddAction = styled(Card)(
 );
 
 function Wallets() {
-  const [stats, setStats] = useState({services: 0,blog: 0,stone: 0,reviews: 0});
+  const [stats, setStats] = useState({services: 0,blog: 0,stone: 0,reviews: 0, portfolio: 0});
 
   useEffect(() => {
     axios.get(`${siteUrl}models/`)
@@ -154,6 +154,35 @@ function Wallets() {
                   style={{marginTop: 20}}
                   fullWidth
                   variant="contained" href='/blog'>Перейти</Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid xs={12} sm={6} md={3} item>
+          <Card
+            sx={{
+              px: 1
+            }}
+          >
+            <CardContent>
+              <Typography variant="h3" noWrap>
+                Портфолио
+              </Typography>
+              <Box
+                sx={{
+                  pt: 3
+                }}
+              >
+                <Typography variant="subtitle2" noWrap>
+                  Всего:
+                </Typography>
+                <Typography variant="h3" gutterBottom noWrap>
+                  {stats.portfolio} штук
+                </Typography>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" href='/portfolio'>Перейти</Button>
               </Box>
             </CardContent>
           </Card>
