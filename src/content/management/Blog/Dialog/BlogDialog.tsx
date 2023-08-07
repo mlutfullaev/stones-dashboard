@@ -11,6 +11,7 @@ import {siteUrl} from "../../../../consts";
 const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBlogs}) => {
   const [isImageNew, setIsImageNew] = useState(false);
   const [title, setTitle] = useState("");
+  const [text, setText] = useState('')
   const [image, setImage] = useState<File | null>(null);
   const [link, setLink] = useState("");
   const [error, setError] = useState(false);
@@ -19,6 +20,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
     if (editingBlog) {
       setTitle(editingBlog.title);
       setLink(editingBlog.blogUrl);
+      setText(editingBlog.text)
       createFile(editingBlog.uploadedFile[0], setImage);
     } else {
       reset();
@@ -28,13 +30,15 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
   const reset = () => {
     setTitle("");
     setLink("");
+    setText('')
     setImage(null);
   };
 
   const send = () => {
-    if (!title || !link || !image) return setError(true);
+    if (!title || !image) return setError(true);
     const data = {
       title,
+      text,
       blogUrl: link,
     };
 
@@ -61,9 +65,10 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
       });
   };
   const updating = async () => {
-    if (!title || !link || !image) return setError(true);
+    if (!title || !image) return setError(true);
     const data = {
       title,
+      text,
       blogUrl: link,
     };
 
@@ -71,6 +76,7 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
       .then(blogRes => {
         if (isImageNew) {
           setIsImageNew(false)
+          console.log('image new')
           axios.delete(`${siteUrl}upload/${editingBlog.uploadedFile[0].id}`)
             .then(() => {
               sendingImg(image)
@@ -107,26 +113,32 @@ const BlogDialog = ({update, modal, setModal, editingBlog, setEditingBlog, setBl
         <TextField
           required
           id="outlined-required"
-          label="Текст"
+          label="Название"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           error={error && !title}
         />
         <TextField
           required
+          id="outlined-required"
+          label="Текст"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          error={error && !text}
+        />
+        <TextField
           id="outlined"
           label="Ссылка"
           value={link}
           onChange={(e) => setLink(e.target.value)}
-          error={error && !link}
         />
         {
           image ? <img style={{maxHeight: 300, width: "100%"}} src={URL.createObjectURL(image)} alt=""/> : null
         }
 
         <input type="file" id="image-input" hidden onChange={(e) => {
-          setImage(e.target.files[0])
           setIsImageNew(true)
+          setImage(e.target.files[0])
         }}/>
         <label htmlFor="image-input" id="label-image-input" style={{
           padding: "8px 20px",

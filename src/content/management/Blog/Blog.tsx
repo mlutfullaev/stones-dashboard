@@ -10,17 +10,24 @@ import Dialog from "@mui/material/Dialog";
 import BlogDialog from "./Dialog/BlogDialog";
 import axios from "axios";
 import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
-import Preview from "@mui/icons-material/Preview";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {deleting} from "../../../helpers/fetching";
 import {siteUrl} from "../../../consts";
 
 type BlogT = {
-  id: number,
-  blogUrl: string,
-  title: string,
+  id: number;
+  blogUrl: string;
+  title: string;
+  text: string;
   uploadedFile: { id: number, mimetype: string, originalname: string }[]
 }
+
+const truncateText = (text, maxLength) => {
+  if (text.length <= maxLength) {
+    return text;
+  }
+  return text.slice(0, maxLength) + '...';
+};
 
 const Blog = () => {
   const [modal, setModal] = useState(false);
@@ -91,8 +98,11 @@ const Blog = () => {
                           title="Contemplative Reptile"
                         />
                         <CardContent>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="h5" color="text.secondary">
                             {blog.title}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary" style={{wordWrap: 'break-word'}}>
+                            {truncateText(blog.text, 70)}
                           </Typography>
                         </CardContent>
                         <CardActions>
@@ -101,7 +111,7 @@ const Blog = () => {
                             setUpdate(true);
                             setModal(true);
                           }}>Редактировать</Button>
-                          <Button size="small" href={blog.blogUrl}>Подробнее</Button>
+                          <Button size="small" href={`https://vkamne.com/blog/${blog.id}`}>Подробнее</Button>
                           <Button size="small" startIcon={<DeleteIcon fontSize="small"/>} onClick={() => deleting('blog/', blog.id, setBlogs)}>Удалить </Button>
                         </CardActions>
                       </Card>
