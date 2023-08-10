@@ -93,7 +93,6 @@ const ServicesDialog = ({update, setUpdate, modal, setModal, editingService, set
 
     patching(`service/${editingService.id}`, data)
       .then(serviceRes => {
-        console.log("service patched");
         if (images.length) {
           const end = (i) => {
             if (i === images.length - 1) {

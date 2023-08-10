@@ -26,13 +26,18 @@ export const sendingImg = (img) => {
   return axios
     .post(`${siteUrl}upload/`, bodyFormData, {
       headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         "Content-Type": "multipart/form-data",
       },
     })
 }
 
 export const patchImg = (id, data) => {
-  return axios.patch(`${siteUrl}upload/${id}`, data)
+  return axios.patch(`${siteUrl}upload/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  })
 }
 export const deleting = (url, id, setState) => {
   if (confirm("Вы точно хотите удалить")) {
@@ -45,4 +50,8 @@ export const deleting = (url, id, setState) => {
         setState((oldItems) => oldItems.filter(oldItem => id !== oldItem.id));
       })
   }
+}
+
+export const deletingBD = (url) => {
+  return axios.delete(url, {headers: {Authorization: `Bearer ${localStorage.getItem('accessToken')}`}})
 }

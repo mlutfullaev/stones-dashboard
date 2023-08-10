@@ -29,8 +29,6 @@ export const checkFiles = async (file, secondFile) => {
     type: file.mimetype
   };
   const firstFile = new File([data], file.originalname, metadata);
-  // console.log(firstFile)
-  // console.log(secondFile)
   if (URL.createObjectURL(firstFile) === URL.createObjectURL(secondFile)) {
     result = true;
   }
