@@ -4,10 +4,10 @@ import {Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import {siteUrl} from "../../consts";
-import ImagesList from "../management/ImagesList";
-import {deletingBD, patchImg, sending, sendingImg} from "../../helpers/fetching";
-import {updateArray} from "../../helpers/helpers";
+import {siteUrl} from "../../../consts";
+import ImagesList from "../../management/ImagesList";
+import {deletingBD, patchImg, sending, sendingImg} from "../../../helpers/fetching";
+import {updateArray} from "../../../helpers/helpers";
 
 const createFiles = async (slides, setImages) => {
   for (const slide of slides) {

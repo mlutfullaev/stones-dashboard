@@ -9,14 +9,15 @@ import {
   alpha,
   Tooltip,
   CardActionArea,
-  styled
+  styled, Link
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {siteUrl} from "../../consts";
 import Dialog from "@mui/material/Dialog";
-import SlideForm from "./SlideForm";
+import SlideForm from "./modals/SlideForm";
+import YoutubeForm from "./modals/YoutubeForm";
 
 const AvatarWrapper = styled(Avatar)(
   ({theme}) => `
@@ -81,12 +82,18 @@ const CardAddAction = styled(Card)(
 
 function Stats() {
   const [statsS, setSStats] = useState({services: 0, blog: 0, stone: 0, reviews: 0, portfolio: 0, slider: 0});
-  const [modal, setModal] = useState(false)
+  const [youtubeUrl, setYoutubeUrl] = useState('')
+  const [slideModal, setSlideModal] = useState(false)
+  const [youtubeModal, setYoutubeModal] = useState(false)
 
   useEffect(() => {
     axios.get(`${siteUrl}models/`)
       .then(res => {
         setSStats(res.data)
+      });
+    axios.get(`${siteUrl}youtube/2`)
+      .then(res => {
+        setYoutubeUrl(res.data.url)
       });
   }, []);
 
@@ -272,14 +279,41 @@ function Stats() {
                 <Button
                   style={{marginTop: 20}}
                   fullWidth
-                  variant="contained" onClick={() => setModal(true)}>Изменить</Button>
+                  variant="contained" onClick={() => setSlideModal(true)}>Изменить</Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid xs={12} sm={6} md={3} item>
+          <Card
+            sx={{
+              px: 1,
+            }}
+          >
+            <CardContent>
+              <Typography variant="h3" noWrap>
+                Ютуб видео
+              </Typography>
+              <Box
+                sx={{
+                  pt: 3
+                }}
+              >
+                <Link variant="h6" color="#5569ff" href={youtubeUrl}>Ссылка на видео</Link>
+                <Button
+                  style={{marginTop: 20}}
+                  fullWidth
+                  variant="contained" onClick={() => setYoutubeModal(true)}>Изменить</Button>
               </Box>
             </CardContent>
           </Card>
         </Grid>
       </Grid>
-      <Dialog open={modal} onClose={() => setModal(false)}>
-        <SlideForm setModal={setModal}/>
+      <Dialog open={slideModal} onClose={() => setSlideModal(false)}>
+        <SlideForm setModal={setSlideModal}/>
+      </Dialog>
+      <Dialog open={youtubeModal} onClose={() => setYoutubeModal(false)}>
+        <YoutubeForm setModal={setYoutubeModal}/>
       </Dialog>
     </>
   );
