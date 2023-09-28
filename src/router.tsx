@@ -23,6 +23,7 @@ const Main = Loader(lazy(() => import('src/content/Main')));
 
 const Services = Loader(lazy(() => import('src/content/management/Services/Services')));
 const Blog = Loader(lazy(() => import('src/content/management/Blog/Blog')));
+const Profile = Loader(lazy(() => import('src/content/management/Profile/Profile')));
 const Reviews = Loader(lazy(() => import('src/content/management/Reviews/Reviews')));
 const Stones = Loader(lazy(() => import('src/content/management/Stones/Stones')));
 const StonePictures = Loader(lazy(() => import('src/content/management/StonePictures')));
@@ -104,6 +105,10 @@ const routes: RouteObject[] = [
       {
         path: 'blog',
         element: <Blog />
+      },
+      {
+        path: 'portfolio',
+        element: <Profile />
       },
       {
         path: 'stones',

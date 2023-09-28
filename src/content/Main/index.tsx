@@ -1,14 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Helmet} from "react-helmet-async";
 import PageTitleWrapper from "../../components/PageTitleWrapper";
 import PageHeader from "../dashboards/Crypto/PageHeader";
 import {Container, Grid} from "@mui/material";
-import AccountBalance from "../dashboards/Crypto/AccountBalance";
-import Wallets from "../dashboards/Crypto/Wallets";
-import AccountSecurity from "../dashboards/Crypto/AccountSecurity";
-import WatchList from "../dashboards/Crypto/WatchList";
-import Footer from "../../components/Footer";
-import axios from "axios";
+import Stats from "./Stats";
 
 const MainPage = () => {
 
@@ -29,7 +24,7 @@ const MainPage = () => {
           spacing={4}
         >
           <Grid item xs={12}>
-            <Wallets />
+            <Stats />
           </Grid>
         </Grid>
       </Container>

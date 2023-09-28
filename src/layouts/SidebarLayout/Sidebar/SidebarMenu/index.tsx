@@ -234,6 +234,17 @@ function SidebarMenu() {
                   disableRipple
                   component={RouterLink}
                   onClick={closeSidebar}
+                  to="/portfolio"
+                  startIcon={<MmsTwoToneIcon />}
+                >
+                  Портфолио
+                </Button>
+              </ListItem>
+              <ListItem component="div">
+                <Button
+                  disableRipple
+                  component={RouterLink}
+                  onClick={closeSidebar}
                   to="/reviews"
                   startIcon={<MmsTwoToneIcon />}
                 >
