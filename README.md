@@ -2,11 +2,23 @@
     <b>Dashboard with React and Typescript</b>
     <br>
 </h1>
-<div align="center">
-
-![version](https://img.shields.io/badge/version-2.0.0-blue.svg)
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
+<p>
+    This is admin dashboard for vkamne.com
+</p>
 
 ---
 
-### Run npm run start to start the application
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run start
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
